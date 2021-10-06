@@ -1,0 +1,19 @@
+package fontys.crossyn.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
+public class Location {
+
+    private String lat;
+    private String lon;
+    private String alt;
+
+}
