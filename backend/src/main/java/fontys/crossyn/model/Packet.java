@@ -1,17 +1,13 @@
 package fontys.crossyn.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+
 public class Packet {
 
     @Id
@@ -20,12 +16,22 @@ public class Packet {
     private String vehicleId;
     @Embedded
     private Location location;
-    private Date dateTime;
+    private ZonedDateTime date;
     private int speed;
     private int speedLimit;
     private int roadType;
     @Nullable
-    private boolean ignition;
+    private Boolean ignition;
+
+    public Packet(String vehicleId, double lat, double lon, int alt, ZonedDateTime date, int speed, int speedLimit, int roadType, Boolean ignition){
+        this.vehicleId = vehicleId;
+        this.location = new Location(lat,lon,alt);
+        this.date = date;
+        this.speed = speed;
+        this.speedLimit = speedLimit;
+        this.roadType = roadType;
+        this.ignition = ignition;
+    }
 
     @Override
     public String toString() {
@@ -33,7 +39,7 @@ public class Packet {
                 "id=" + id +
                 ", vehicleId='" + vehicleId + '\'' +
                 ", location=" + location +
-                ", dateTime=" + dateTime +
+                ", date=" + date +
                 ", speed=" + speed +
                 ", speedLimit=" + speedLimit +
                 ", roadType=" + roadType +
