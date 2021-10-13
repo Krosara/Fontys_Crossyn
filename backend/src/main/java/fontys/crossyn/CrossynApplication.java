@@ -15,7 +15,7 @@ public class CrossynApplication {
         //ioService.convertTxtToJson();
 
         JSONReader reader = new JSONReader();
-        reader.selectJson();
+        reader.readJson();
 
         SpringApplication.run(CrossynApplication.class, args);
     }
