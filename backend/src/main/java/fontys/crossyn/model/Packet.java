@@ -24,6 +24,6 @@ public class Packet {
     private String speedLimit;
     private String roadType;
     @Nullable
-    private boolean ignition;
+    private Boolean ignition;
 
 }
