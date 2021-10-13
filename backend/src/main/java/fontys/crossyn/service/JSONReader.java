@@ -25,7 +25,7 @@ public class JSONReader {
     public boolean selectJson(){
 
         // Selection of JSON file
-        final JFileChooser fileChooser = new JFileChooser("C:\\Users\\tigge\\Desktop\\Group project\\crossyn_group_4\\backend\\src\\main\\resources");
+        final JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\main\\resources\\");
         FileFilter filter = new FileNameExtensionFilter("JSON file", "json");
         fileChooser.addChoosableFileFilter(filter);
         int result = fileChooser.showOpenDialog(null);
@@ -62,6 +62,7 @@ public class JSONReader {
                     Packet dataPacket = new Packet(vehicleId, lat, lon, alt, date, speed, speedLimit, roadType, ignition);
                     packets.add(dataPacket);
                 }
+                System.out.println(packets.size());
                 System.out.println(packets.get(0));
                 System.out.println(packets.get(1));
                 System.out.println(packets.get(2));
