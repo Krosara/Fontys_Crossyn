@@ -57,6 +57,7 @@ public class JSONReader {
                 JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
 
                 ArrayList<Packet> packets = new ArrayList<Packet>();
+
                 for(JsonElement element: jsonArray) {
                     JsonObject obj = element.getAsJsonObject();
                     String vehicleId = obj.get("vehicleId").getAsString();
