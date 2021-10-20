@@ -23,6 +23,16 @@ public class Packet {
     @Nullable
     private Boolean ignition;
 
+    public Packet(String vehicleId, double lat, double lon, int alt, ZonedDateTime date, int speed, int speedLimit, int roadType, Boolean ignition){
+        this.vehicleId = vehicleId;
+        this.location = new Location(lat,lon,alt);
+        this.date = date;
+        this.speed = speed;
+        this.speedLimit = speedLimit;
+        this.roadType = roadType;
+        this.ignition = ignition;
+    }
+
     @Override
     public String toString() {
         return "Packet{" +
