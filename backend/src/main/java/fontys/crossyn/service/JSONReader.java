@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.google.gson.*;
+import fontys.crossyn.model.IgnitionStates;
 import fontys.crossyn.model.Packet;
 
 public class JSONReader {
@@ -68,9 +69,15 @@ public class JSONReader {
                     int speed = obj.get("speed").getAsInt();
                     int speedLimit = obj.get("speedLimit").getAsInt();
                     int roadType = obj.get("roadType").getAsInt();
-                    Boolean ignition = null;
+                    IgnitionStates ignition = IgnitionStates.NULL;
                     if (obj.has("ignition")) {
-                        ignition = obj.get("ignition").getAsBoolean();
+                        if(obj.get("ignition").getAsBoolean()){
+                            ignition = IgnitionStates.TRUE;
+                        }
+                        else{
+                            ignition = IgnitionStates.FALSE;
+                        }
+
                     }
                     Packet dataPacket = new Packet(vehicleId, lat, lon, alt, date, speed, speedLimit, roadType, ignition);
                     packets.add(dataPacket);

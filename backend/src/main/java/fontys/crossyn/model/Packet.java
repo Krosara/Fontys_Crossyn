@@ -20,10 +20,11 @@ public class Packet {
     private int speed;
     private int speedLimit;
     private int roadType;
-    @Nullable
-    private Boolean ignition;
+    private IgnitionStates ignition;
 
-    public Packet(String vehicleId, double lat, double lon, int alt, ZonedDateTime date, int speed, int speedLimit, int roadType, Boolean ignition){
+
+
+    public Packet(String vehicleId, double lat, double lon, int alt, ZonedDateTime date, int speed, int speedLimit, int roadType, IgnitionStates ignition){
         this.vehicleId = vehicleId;
         this.location = new Location(lat,lon,alt);
         this.date = date;
@@ -32,7 +33,15 @@ public class Packet {
         this.roadType = roadType;
         this.ignition = ignition;
     }
-
+    public String getVehicleId() {
+        return vehicleId;
+    }
+    public IgnitionStates getIgnition() {
+        return ignition;
+    }
+    public ZonedDateTime getDate() {
+        return date;
+    }
     @Override
     public String toString() {
         return "Packet{" +
