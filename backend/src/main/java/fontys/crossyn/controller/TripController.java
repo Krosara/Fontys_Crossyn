@@ -18,32 +18,61 @@ public class TripController {
 
     public List<Trip> CreateTrip(List<Packet> packets) {
 
-        List<String> carIDs = new ArrayList<>();
-
-        for(Packet p : packets){
-           carIDs.add(p.getVehicleId());
-        }
-
-        List<String> uniqueCarIDs = new ArrayList<String>(new HashSet<String>(carIDs));
-        System.out.println(uniqueCarIDs);
-
-        List<Trip> CarTrips= new ArrayList<>();
-        Trip trip = new Trip(1, null, null, new ArrayList<Packet>());
-
-        int x = 0;
-        for (Packet p: packets){
-            if (p.getVehicleId() == uniqueCarIDs.get(x)){
-                trip.AddPacket(p);
-
-                if(p.getIgnition() != false){
-                    
-                }
-
+        ArrayList<Trip> trips = new ArrayList<>();
+        Trip newt;
+        Boolean tripExists = false;
+        for (Packet p : packets) {
+            if(trips.contains(p.getVehicleId())){
+                t.AddPacket(p);
+                tripExists = true;
             }
 
+
+            }
+            if (tripExists == false) {
+                newt = new Trip(1, p.getVehicleId(), null);
+                newt.AddPacket(p);
+                trips.add(newt);
+            }
+            tripExists = false;
         }
+        System.out.println(trips);
+
+
+
+
 
         return null;
+    }
+//        List<String> carIDs = new ArrayList<>();
+//
+//        for(Packet p : packets){
+//            if (!carIDs.contains(p.getVehicleId()))
+//           carIDs.add(p.getVehicleId());
+//
+//
+//        }
+//
+//        List<String> uniqueCarIDs = new ArrayList<String>(new HashSet<String>(carIDs));
+//        System.out.println(uniqueCarIDs);
+//
+//        List<Trip> CarTrips= new ArrayList<>();
+//        Trip trip = new Trip(1, null, null, new ArrayList<Packet>());
+//
+//        int x = 0;
+//        for (Packet p: packets){
+//            if (p.getVehicleId() == carIDs.get(x)){
+//                trip.AddPacket(p);
+//
+//                if(p.getIgnition() != false){
+//
+//                }
+//
+//            }
+//
+//        }
+//
+//        return null;
 //        for (Packet packet : packets) {
 //            if (packet.getVehicleId() == "1") //user.vehicleID
 //            {
@@ -62,8 +91,8 @@ public class TripController {
 //            }
 //
 //        }
-
-    }
+//
+//    }
 
 
 //        static long findDifference (String start_date, String end_date)

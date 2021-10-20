@@ -19,11 +19,12 @@ public class CrossynApplication {
         IOService ioService = new IOService();
         ioService.convertTxtToJson();
 
-        Packet packet1 = new Packet(1,"1",null,null,null,null,null,true);
-        Packet packet2 = new Packet(2,"1",null,null,null,null,null,null);
-        Packet packet3 = new Packet(3,"2",null,null,null,null,null,null);
-        Packet packet4 = new Packet(4,"1",null,null,null,null,null,false);
-        Packet packet5 = new Packet(5,"2",null,null,null,null,null,true);
+        Packet packet1 = new Packet(1,"1A",null,null,null,null,null,true);
+        Packet packet2 = new Packet(2,"1A",null,null,null,null,null,null);
+        Packet packet3 = new Packet(3,"2B",null,null,null,null,null,null);
+        Packet packet4 = new Packet(4,"2B",null,null,null,null,null,false);
+        Packet packet5 = new Packet(5,"2B",null,null,null,null,null,true);
+        Packet packet6 = new Packet(6,"1A",null,null,null,null,null,true);
 
         List<Packet> packetList = new ArrayList<Packet>();
         packetList.add(packet1);
@@ -31,7 +32,7 @@ public class CrossynApplication {
         packetList.add(packet3);
         packetList.add(packet4);
         packetList.add(packet5);
-
+        packetList.add(packet6);
         TripController tripController = new TripController();
         tripController.CreateTrip(packetList);
 
