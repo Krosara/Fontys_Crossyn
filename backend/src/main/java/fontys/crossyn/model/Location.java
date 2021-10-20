@@ -12,8 +12,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Location {
 
-    private String lat;
-    private String lon;
-    private String alt;
+    private double lat;
+    private double lon;
+    private int alt;
 
 }

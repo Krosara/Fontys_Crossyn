@@ -23,8 +23,9 @@ public class PacketService {
         return packetRepository.save(packet);
     }
 
-//    public Iterable<Packet> save(List<Packet> packets){
-//        return packetRepository.save(packets);
-//    }
+    public boolean readDataset(){
+
+        return false;
+    }
 
 }
