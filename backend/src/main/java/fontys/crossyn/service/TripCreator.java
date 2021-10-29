@@ -5,6 +5,8 @@ import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 
 import java.lang.reflect.Array;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,21 +22,74 @@ public class TripCreator {
     public TripCreator(){
 
     }
-    public ArrayList<Trip> addPacketToTrip(Packet currPacket, ArrayList<Trip> currTrips){
+    /*public ArrayList<Trip> addPacketToTrip(Packet currPacket, ArrayList<Trip> currTrips){
         Trip t = currTrips.get(currTrips.size()-1);
+        if(t.isFinished()){
+            t = new Trip(currPacket.getVehicleId());
+            currTrips.add(t);
+        }
         t.AddPacket(currPacket);
         if(currPacket.getIgnition() == IgnitionStates.FALSE){
             t.finishTrip();
-            currTrips.add(new Trip(currPacket.getVehicleId()));
         }
         else{
             currTrips.set(currTrips.size()-1, t);
 
         }
         return currTrips;
+    }*/
+    public boolean isNewTrip(ZonedDateTime time1, ZonedDateTime time2){
+        long difference = Duration.between(time2, time1).toSeconds();
+        if(difference >= 300){
+            return true;
+        }
+        return false;
+    }
+    public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets) {
+
+        //initialize hashmap
+        HashMap<String, ArrayList<Trip>> trips = new HashMap<String, ArrayList<Trip>>();
+        ArrayList<Trip> currTrips = new ArrayList<Trip>();
+        //starts first trip with first packet
+        Packet currPacket = packets.get(0);
+        Trip t = new Trip(currPacket.getVehicleId());
+        t.addPacket(currPacket);
+        currTrips.add(t);
+        trips.put(currPacket.getVehicleId(), currTrips);
+
+        for(int i = 1 ; i < packets.size(); i ++){
+            //define current trip depending on packet
+            currPacket = packets.get(i);
+            if(trips.containsKey(currPacket.getVehicleId())){
+                currTrips = trips.get(currPacket.getVehicleId());
+            }
+            else{
+                currTrips = new ArrayList<Trip>();
+                Trip newTrip = new Trip(currPacket.getVehicleId());
+                newTrip.addPacket(currPacket);
+                currTrips.add(newTrip);
+                trips.put(currPacket.getVehicleId(), currTrips);
+            }
+            Trip lastTrip = currTrips.get(currTrips.size()-1);
+            Packet lastPacket = lastTrip.getLast();
+            if(isNewTrip(currPacket.getDate(), lastPacket.getDate())){
+                //finish last trip and create new
+                lastTrip.finishTrip();
+                currTrips.set(currTrips.size()-1, lastTrip);
+                t = new Trip(currPacket.getVehicleId());
+                t.addPacket(currPacket);
+                currTrips.add(t);
+            }
+            else{
+                lastTrip.addPacket(currPacket);
+                currTrips.set(currTrips.size()-1, lastTrip);
+            }
+            trips.replace(lastPacket.getVehicleId(), currTrips);
+        }
+        return trips;
     }
 
-    public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets){
+    /*public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets){
         HashMap<String, ArrayList<Trip>> trips = new HashMap<String, ArrayList<Trip>>();
         int index = 0;
         for(int i = 0 ; i < packets.size(); i ++){
@@ -47,7 +102,7 @@ public class TripCreator {
                 break;
             }
         }
-        for(int j = index; j < packets.size(); j++){
+        for(int j  = index; j < packets.size(); j++){
             Packet currPacket = packets.get(j);
             if(trips.containsKey(currPacket.getVehicleId())){
                 ArrayList<Trip> currTrips = trips.get(currPacket.getVehicleId());
@@ -62,5 +117,5 @@ public class TripCreator {
 
         }
         return trips;
-    }
+    }*/
 }
