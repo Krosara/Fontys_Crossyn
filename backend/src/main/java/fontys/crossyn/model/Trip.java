@@ -23,15 +23,27 @@ public class Trip {
     public Trip(String vehicleID) {
         this.vehicleID = vehicleID;
         this.packets = new ArrayList<Packet>();
+        this.endTime = null;
     }
 
-    public void AddPacket(Packet packet){
+    public void addPacket(Packet packet){
         this.packets.add(packet);
     }
 
     public void finishTrip(){
         this.startTime = packets.get(0).getDate();
         this.endTime = packets.get(packets.size()-1).getDate();
+    }
+
+    public boolean isFinished(){
+        if(this.endTime == null ){
+            return false;
+        }
+        return true;
+    }
+
+    public Packet getLast(){
+        return packets.get(packets.size()-1);
     }
 
     public List<Packet> getPackets() {
