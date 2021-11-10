@@ -1,5 +1,7 @@
 package fontys.crossyn.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -7,7 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Packet {
 
     @Id
