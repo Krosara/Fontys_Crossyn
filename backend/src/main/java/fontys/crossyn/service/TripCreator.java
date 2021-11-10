@@ -3,14 +3,30 @@ package fontys.crossyn.service;
 import fontys.crossyn.model.IgnitionStates;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
+import fontys.crossyn.repository.PacketRepository;
+import fontys.crossyn.repository.TripRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Service
 public class TripCreator {
+
+    @Autowired
+    TripRepository tripRepository;
+
+    public List<Trip> GetTrips(){
+        List<Trip> trips = tripRepository.findAll();
+
+        return trips;
+    }
 
 
    /* public HashMap<String, ArrayList<Packet>> packetSplitter(ArrayList<Packet> packets){
@@ -85,6 +101,15 @@ public class TripCreator {
                 currTrips.set(currTrips.size()-1, lastTrip);
             }
             trips.replace(lastPacket.getVehicleId(), currTrips);
+        }
+
+
+
+
+        for (Map.Entry<String, ArrayList<Trip>> entry : trips.entrySet()){
+            for(Trip  trip : entry.getValue()){
+                tripRepository.save(trip);
+            }
         }
         return trips;
     }

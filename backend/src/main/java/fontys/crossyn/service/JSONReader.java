@@ -24,7 +24,7 @@ public class JSONReader {
     }
 
     //File selection
-    private File fileSelect(){
+    public File fileSelect(){
         final JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\main\\resources\\");
         FileFilter filter = new FileNameExtensionFilter("JSON file", "json");
         fileChooser.addChoosableFileFilter(filter);
@@ -48,14 +48,14 @@ public class JSONReader {
         System.out.println(packets.get(2));
     }
 
-    public ArrayList<Packet> readJson(){
+    public ArrayList<Packet> readJson(JsonArray jsonArray){
         File selectedFile = fileSelect();
-        if(selectedFile != null) {
-            try {
-                //Reading of JSON file
-                FileReader reader = new FileReader(selectedFile);
-                Gson gson = new Gson();
-                JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
+//        if(selectedFile != null) {
+//            try {
+//                //Reading of JSON file
+//                FileReader reader = new FileReader(selectedFile);
+//                Gson gson = new Gson();
+//                JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
 
                 ArrayList<Packet> packets = new ArrayList<Packet>();
 
@@ -85,11 +85,11 @@ public class JSONReader {
                 printPackets(packets);
                 return packets;
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Something went wrong");
-            }
-        }
-        return null;
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                System.out.println("Something went wrong");
+//            }
+//        }
+//        return null;
     }
 }
