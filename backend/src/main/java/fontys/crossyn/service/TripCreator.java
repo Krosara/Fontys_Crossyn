@@ -61,11 +61,29 @@ public class TripCreator {
         }
         return false;
     }
+    //Finishes the last trip in the array
+    private ArrayList<Trip> finishLastTrip(ArrayList<Trip> trips){
+        Trip lastTrip = trips.get(trips.size()-1);
+        lastTrip.finishTrip();
+        trips.set(trips.size()-1, lastTrip);
+        return trips;
+    }
+
+    //Loops through all vehicles' trips in order to finish them
+    private HashMap<String, ArrayList<Trip>> finishTrips(HashMap<String, ArrayList<Trip>> trips){
+        HashMap<String, ArrayList<Trip>> finished = new HashMap<String, ArrayList<Trip>>();
+        for (Map.Entry<String, ArrayList<Trip>> entry : trips.entrySet()){
+                String vehicleId = entry.getKey();
+                ArrayList<Trip> currTrips = finishLastTrip(entry.getValue());
+                finished.put(vehicleId, currTrips);
+            }
+        return trips;
+    }
     public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets) {
 
-        //initialize hashmap
         HashMap<String, ArrayList<Trip>> trips = new HashMap<String, ArrayList<Trip>>();
         ArrayList<Trip> currTrips = new ArrayList<Trip>();
+        
         //starts first trip with first packet
         Packet currPacket = packets.get(0);
         Trip t = new Trip(currPacket.getVehicleId());
@@ -104,7 +122,7 @@ public class TripCreator {
             }
             trips.replace(lastPacket.getVehicleId(), currTrips);
         }
-        lastTrip.finishTrip();
+        /*lastTrip.finishTrip();
         currTrips.set(currTrips.size()-1, lastTrip);
         trips.replace(lastPacket.getVehicleId(), currTrips);
 
@@ -112,8 +130,8 @@ public class TripCreator {
             for(Trip  trip : entry.getValue()){
                 tripRepository.save(trip);
             }
-        }
-        return trips;
+        }*/
+        return finishTrips(trips);
     }
 
     /*public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets){
