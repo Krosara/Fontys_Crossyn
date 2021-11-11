@@ -12,7 +12,7 @@ import java.util.Objects;
 
 
 public class Trip {
-
+    private static int IDseeder = 0;
     private int tripID;
     private String vehicleID;
     @Getter
@@ -21,6 +21,7 @@ public class Trip {
     private List<Packet> packets;
 
     public Trip(String vehicleID) {
+        this.tripID = IDseeder++;
         this.vehicleID = vehicleID;
         this.packets = new ArrayList<Packet>();
         this.endTime = null;
@@ -52,6 +53,17 @@ public class Trip {
 
     public String getVehicleID() {
         return vehicleID;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripID=" + tripID +
+                ", vehicleID='" + vehicleID + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", packet amount=" + packets.size() +
+                '}';
     }
 
     @Override

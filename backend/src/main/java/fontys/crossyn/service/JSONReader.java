@@ -82,7 +82,7 @@ public class JSONReader {
                     Packet dataPacket = new Packet(vehicleId, lat, lon, alt, date, speed, speedLimit, roadType, ignition);
                     packets.add(dataPacket);
                 }
-                printPackets(packets);
+                //printPackets(packets);
                 return packets;
 
             } catch (Exception e) {

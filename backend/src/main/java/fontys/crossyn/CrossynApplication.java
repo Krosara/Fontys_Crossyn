@@ -27,15 +27,14 @@ public class CrossynApplication {
 
         HashMap<String, ArrayList<Trip>> trips = tripCreator.createTrips(packetList);
 
-       // System.out.println(tripCreator.isNewTrip(packetList.get(0).getDate(), packetList.get(1).getDate()));
-       // System.out.println(tripCreator.isNewTrip(packetList.get(1).getDate(), packetList.get(2).getDate()));
-        System.out.println(tripCreator.isNewTrip(packetList.get(975).getDate(), packetList.get(976).getDate()));
-        System.out.println(tripCreator.isNewTrip(packetList.get(976).getDate(), packetList.get(977).getDate()));
-        System.out.println(tripCreator.isNewTrip(packetList.get(977).getDate(), packetList.get(978).getDate()));
-        System.out.println(tripCreator.isNewTrip(packetList.get(978).getDate(), packetList.get(979).getDate()));
-       // System.out.println(tripCreator.isNewTrip(packetList.get(2).getDate(), packetList.get(4000).getDate()));
-
         ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
+
+        for(Trip t: currTrips){
+            System.out.println(t);
+            System.out.println(t.getPackets().get(0));
+            System.out.println(t.getPackets().get(t.getPackets().size()-1));
+            System.out.println();
+        }
 
 
 

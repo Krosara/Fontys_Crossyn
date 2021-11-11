@@ -57,6 +57,8 @@ public class TripCreator {
         currTrips.add(t);
         trips.put(currPacket.getVehicleId(), currTrips);
 
+        Trip lastTrip = t;
+        Packet lastPacket = currPacket;
         for(int i = 1 ; i < packets.size(); i ++){
             //define current trip depending on packet
             currPacket = packets.get(i);
@@ -70,8 +72,8 @@ public class TripCreator {
                 currTrips.add(newTrip);
                 trips.put(currPacket.getVehicleId(), currTrips);
             }
-            Trip lastTrip = currTrips.get(currTrips.size()-1);
-            Packet lastPacket = lastTrip.getLast();
+            lastTrip = currTrips.get(currTrips.size()-1);
+            lastPacket = lastTrip.getLast();
             if(isNewTrip(currPacket.getDate(), lastPacket.getDate())){
                 //finish last trip and create new
                 lastTrip.finishTrip();
@@ -86,6 +88,10 @@ public class TripCreator {
             }
             trips.replace(lastPacket.getVehicleId(), currTrips);
         }
+        lastTrip.finishTrip();
+        currTrips.set(currTrips.size()-1, lastTrip);
+        trips.replace(lastPacket.getVehicleId(), currTrips);
+
         return trips;
     }
 
