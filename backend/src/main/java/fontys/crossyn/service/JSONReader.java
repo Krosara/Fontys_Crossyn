@@ -24,7 +24,7 @@ public class JSONReader {
     }
 
     //File selection
-    private File fileSelect(){
+    public File fileSelect(){
         final JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\main\\resources\\");
         FileFilter filter = new FileNameExtensionFilter("JSON file", "json");
         fileChooser.addChoosableFileFilter(filter);
@@ -48,14 +48,14 @@ public class JSONReader {
         System.out.println(packets.get(2));
     }
 
-    public ArrayList<Packet> readJson(){
+    public ArrayList<Packet> readJson(JsonArray jsonArray){
         File selectedFile = fileSelect();
-        if(selectedFile != null) {
-            try {
-                //Reading of JSON file
-                FileReader reader = new FileReader(selectedFile);
-                Gson gson = new Gson();
-                JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
+//        if(selectedFile != null) {
+//            try {
+//                //Reading of JSON file
+//                FileReader reader = new FileReader(selectedFile);
+//                Gson gson = new Gson();
+//                JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
 
                 ArrayList<Packet> packets = new ArrayList<Packet>();
 
@@ -84,6 +84,50 @@ public class JSONReader {
                 }
                 //printPackets(packets);
                 return packets;
+
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                System.out.println("Something went wrong");
+//            }
+//        }
+//        return null;
+    }
+    public ArrayList<Packet> readJsonFile(){
+        File selectedFile = fileSelect();
+        if(selectedFile != null) {
+            try {
+                //Reading of JSON file
+                FileReader reader = new FileReader(selectedFile);
+                Gson gson = new Gson();
+               JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
+
+        ArrayList<Packet> packets = new ArrayList<Packet>();
+
+        for(JsonElement element: jsonArray) {
+            JsonObject obj = element.getAsJsonObject();
+            String vehicleId = obj.get("vehicleId").getAsString();
+            double lat = obj.get("lat").getAsDouble();
+            double lon = obj.get("lon").getAsDouble();
+            int alt = obj.get("alt").getAsInt();
+            ZonedDateTime date = formatDate(obj.get("dateTime").getAsString());
+            int speed = obj.get("speed").getAsInt();
+            int speedLimit = obj.get("speedLimit").getAsInt();
+            int roadType = obj.get("roadType").getAsInt();
+            IgnitionStates ignition = IgnitionStates.NULL;
+            if (obj.has("ignition")) {
+                if(obj.get("ignition").getAsBoolean()){
+                    ignition = IgnitionStates.TRUE;
+                }
+                else{
+                    ignition = IgnitionStates.FALSE;
+                }
+
+            }
+            Packet dataPacket = new Packet(vehicleId, lat, lon, alt, date, speed, speedLimit, roadType, ignition);
+            packets.add(dataPacket);
+        }
+        //printPackets(packets);
+        return packets;
 
             } catch (Exception e) {
                 e.printStackTrace();

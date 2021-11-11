@@ -4,27 +4,35 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-
+@Entity
+@Table(name="trip")
 public class Trip {
-    private static int IDseeder = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripID;
     private String vehicleID;
     @Getter
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
+    @OneToMany(mappedBy="trip")
     private List<Packet> packets;
 
     public Trip(String vehicleID) {
-        this.tripID = IDseeder++;
+
         this.vehicleID = vehicleID;
         this.packets = new ArrayList<Packet>();
         this.endTime = null;
+    }
+
+    public Trip() {
+
     }
 
     public void addPacket(Packet packet){

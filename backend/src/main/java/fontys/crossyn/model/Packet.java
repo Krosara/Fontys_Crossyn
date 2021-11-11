@@ -26,6 +26,17 @@ public class Packet {
     private int roadType;
     private IgnitionStates ignition;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trip_trip_id", unique = true)
+    private Trip trip;
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
 
 
     public Packet(String vehicleId, double lat, double lon, int alt, ZonedDateTime date, int speed, int speedLimit, int roadType, IgnitionStates ignition){
