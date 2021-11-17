@@ -1,8 +1,10 @@
 package fontys.crossyn.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -11,8 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name="trip")
+@Data
+@Document
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
