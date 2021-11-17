@@ -1,0 +1,9 @@
+start next sprint plan
+schedule meeting on Friday next week(26 Nov)
+minutes of the minutes within 24 hours
+move project to github
+send a document with all our links (jira, github, etc.)
+add/update research questions to plan
+have a research plan(research strategies/ methods)
+update research document with proper dot framework
+add which db we are using in the research document
