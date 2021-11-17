@@ -1,7 +1,9 @@
 package fontys.crossyn.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -9,13 +11,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+@Data
+@Document
 public class Packet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String vehicleId;
     @Embedded

@@ -5,11 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Embeddable
+@Data
 public class Location {
 
     private double lat;
