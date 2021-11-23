@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Location {
 

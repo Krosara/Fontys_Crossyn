@@ -15,12 +15,12 @@ public class PacketService {
         this.packetRepository = packetRepository;
     }
 
-    public Iterable<Packet> list() {
+    public List<Packet> list() {
         return packetRepository.findAll();
     }
 
     public Packet save(Packet packet) {
-        return packetRepository.save(packet);
+        return packetRepository.insert(packet);
     }
 
     public boolean readDataset(){

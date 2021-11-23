@@ -4,10 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
+import fontys.crossyn.repository.PacketRepository;
+import fontys.crossyn.service.PacketService;
 import fontys.crossyn.service.TripCreator;
 import fontys.crossyn.service.JSONReader;
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +22,15 @@ import java.util.HashMap;
 @SpringBootApplication
 public class CrossynApplication {
 
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+
+    @Bean
+    public JSONReader reader(){
+        return new JSONReader();
+    }
 
     public static void main(String[] args) {
 
@@ -59,6 +73,16 @@ public class CrossynApplication {
         SpringApplication.run(CrossynApplication.class, args);
     }
 
-
+//    @Bean
+//    CommandLineRunner commandLineRunner(PacketRepository pr, JSONReader reader) {
+//        return args -> {
+//            ArrayList<Packet> packetList = reader.readJsonFile();
+//
+//            for (Packet p : packetList) {
+//                pr.insert(p);
+//            }
+//        };
+//
+//    }
 
 }
