@@ -36,7 +36,10 @@ public class Trip {
     }
 
     public void addPacket(Packet packet){
-        this.packets.add(packet);
+        if(packets.size() == 0 || !packet.equals(getLast())){
+            this.packets.add(packet);
+        }
+        //this.packets.add(packet);
     }
 
     public void finishTrip(){
