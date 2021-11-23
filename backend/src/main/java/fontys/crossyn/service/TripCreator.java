@@ -54,12 +54,14 @@ public class TripCreator {
         }
         return currTrips;
     }*/
-    public boolean isNewTrip(ZonedDateTime time1, ZonedDateTime time2){
-        long difference = Duration.between(time2, time1).toSeconds();
-        if(difference >= 300){
+    public boolean isNewTrip(Packet packet1, Packet packet2){
+        if(packet2.getIgnition() == IgnitionStates.FALSE){
             return true;
         }
-        return false;
+        ZonedDateTime time1 = packet1.getDate();
+        ZonedDateTime time2 = packet2.getDate();
+        long difference = Duration.between(time2, time1).toSeconds();
+        return difference >= 300;
     }
     //Finishes the last trip in the array
     private ArrayList<Trip> finishLastTrip(ArrayList<Trip> trips){
@@ -108,7 +110,7 @@ public class TripCreator {
             }
             lastTrip = currTrips.get(currTrips.size()-1);
             lastPacket = lastTrip.getLast();
-            if(isNewTrip(currPacket.getDate(), lastPacket.getDate())){
+            if(isNewTrip(currPacket, lastPacket)){
                 //finish last trip and create new
                 lastTrip.finishTrip();
                 currTrips.set(currTrips.size()-1, lastTrip);
