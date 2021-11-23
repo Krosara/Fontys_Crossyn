@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 @Data
 @Document
@@ -70,5 +71,18 @@ public class Packet {
                 ", roadType=" + roadType +
                 ", ignition=" + ignition +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Packet packet = (Packet) o;
+        return (date.equals(packet.date)/* && location.equals(packet.location)*/);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date);
     }
 }
