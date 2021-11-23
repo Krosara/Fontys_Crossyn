@@ -11,13 +11,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Document
 public class Packet {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     private String vehicleId;
     @Embedded
     private Location location;
