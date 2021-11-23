@@ -77,7 +77,7 @@ public class Packet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Packet packet = (Packet) o;
-        return date.equals(packet.date);
+        return (date.equals(packet.date) && location.equals(packet.location));
     }
 
     @Override
