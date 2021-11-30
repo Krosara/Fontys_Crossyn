@@ -5,18 +5,19 @@ import geojson from 'react-geojson';
 
 //mapboxgl.accessToken = 'pk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3ZvYnVlN20wbzdrMnZxaDIxY3FtazJkIn0.wK7GJFWgdHCFN9HIWKxjOw';
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3ZvYnVlN20wbzdrMnZxaDIxY3FtazJkIn0.wK7GJFWgdHCFN9HIWKxjOw';
+mapboxgl.accessToken =
+  'pk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3ZvYnVlN20wbzdrMnZxaDIxY3FtazJkIn0.wK7GJFWgdHCFN9HIWKxjOw';
 
 function Overlay() {
   const geojson = {
-    'type': 'FeatureCollection',
-    'features': [
+    type: 'FeatureCollection',
+    features: [
       {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'LineString',
-          'properties': {},
-          'coordinates': [
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          properties: {},
+          coordinates: [
             [-77.0366048812866, 38.89873175227713],
             [-77.03364372253417, 38.89876515143842],
             [-77.03364372253417, 38.89549195896866],
@@ -27,13 +28,12 @@ function Overlay() {
             [-77.00813055038452, 38.892051604275686],
             [-77.00832366943358, 38.89143365883688],
             [-77.00818419456482, 38.89082405874451],
-            [-77.00815200805664, 38.88989712255097]
-          ]
-        }
-      }
-    ]
+            [-77.00815200805664, 38.88989712255097],
+          ],
+        },
+      },
+    ],
   };
-
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -46,8 +46,8 @@ function Overlay() {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [4.77152, 51.59152],
-      zoom: zoom
+      center: [-77.01521158218382, 38.892068305429156],
+      zoom: zoom,
     });
   });
 
@@ -57,8 +57,6 @@ function Overlay() {
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
-
-
     });
   });
 
@@ -66,21 +64,21 @@ function Overlay() {
     if (!map.current) return;
     map.current.on('load', () => {
       map.current.addSource('LineString', {
-        'type': 'geojson',
-        'data': geojson
+        type: 'geojson',
+        data: geojson,
       });
       map.current.addLayer({
-        'id': 'LineString',
-        'type': 'line',
-        'source': 'LineString',
-        'layout': {
+        id: 'LineString',
+        type: 'line',
+        source: 'LineString',
+        layout: {
           'line-join': 'round',
-          'line-cap': 'round'
+          'line-cap': 'round',
         },
-        'paint': {
+        paint: {
           'line-color': '#BF93E4',
-          'line-width': 5
-        }
+          'line-width': 5,
+        },
       });
     });
   });
@@ -93,7 +91,6 @@ function Overlay() {
     </div>
   );
 
-
   /* useEffect(() => {
      if (map.current) return; // initialize map only once
      map.current = new mapboxgl.Map({
@@ -103,7 +100,6 @@ function Overlay() {
        zoom: zoom
      });
    });*/
-
 }
 
-export default Overlay
+export default Overlay;

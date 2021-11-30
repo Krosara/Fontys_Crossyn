@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/packet")
@@ -30,6 +31,6 @@ public class PacketController {
 
     @GetMapping
     public List<PacketDTO> getAllPackets(){
-        return packetService.list().stream().map(packet -> modelMapper.map(packet, PacketDTO.class)).toList();
+        return packetService.list().stream().map(packet -> modelMapper.map(packet, PacketDTO.class)).collect(Collectors.toList());
     }
 }
