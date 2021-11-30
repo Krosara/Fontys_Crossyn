@@ -7,6 +7,7 @@ import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 import fontys.crossyn.service.JSONReader;
 import fontys.crossyn.service.TripCreator;
+import fontys.crossyn.service.TripService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -23,24 +25,32 @@ public class TripController {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final TripCreator tripCreator;
+    private final TripService tripService;
 
-    public TripController(TripCreator tripCreator) {
-        this.tripCreator = tripCreator;
+    public TripController(TripService tripCreator) {
+        this.tripService = tripCreator;
     }
 
-    @GetMapping
+    @GetMapping("/GetAll")
     public List<TripDTO> getAllTrips(){
-        return tripCreator.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).toList();
+        return tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
     }
 
-    @PostMapping
-    public void CreateTrips(@RequestBody JsonArray jsonArray){
+    @PostMapping("/CreateTrips")
+    public void CreateTrips(){
 
         JSONReader reader = new JSONReader();
 
-        ArrayList<Packet> packetList = reader.readJson(jsonArray);
-        tripCreator.createTrips(packetList);
+        ArrayList<Packet> packetList = reader.readJsonFile();
+
+        tripService.CreateTrips(packetList);
+
+    }
+
+    @DeleteMapping("/Delete")
+    public void DeleteTrip(@RequestBody String tripId){
+
+        tripService.DeleteTrip(tripId);
     }
 
 
