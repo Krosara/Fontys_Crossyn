@@ -10,6 +10,7 @@ import fontys.crossyn.service.TripCreator;
 import fontys.crossyn.service.TripService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,10 @@ public class TripController {
     }
 
     @GetMapping("/GetAll")
-    public List<TripDTO> getAllTrips(){
-        return tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
+    public ResponseEntity<List<TripDTO>>  getAllTrips(){
+        List<TripDTO> trips = tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
+            return new ResponseEntity<>(trips, HttpStatus.OK);
+
     }
 
     @PostMapping("/CreateTrips")
