@@ -4,7 +4,7 @@ import Home from './Home';
 import Trips from './Trips';
 import Vehicle from './Vehicle';
 import Account from './Account';
-
+import Map from './Components/Map';
 function App() {
   
   if (window.location.href.indexOf("home") > -1) {
@@ -26,10 +26,15 @@ function App() {
         return (
           <Account></Account>
         );
-        }          
+        }    
+        if (window.location.href.indexOf("map") > -1) {
+          return (
+            <Map/>
+          );
+          }          
     else{
       return (
-        <Home></Home>
+        <Home/>
         );
     }
 }

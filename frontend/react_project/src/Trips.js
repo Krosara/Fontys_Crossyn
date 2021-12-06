@@ -11,7 +11,6 @@ function Trips() {
         <img src={trips}  className="App-logo" alt="logo" />
       </header>
       <TripCon></TripCon>
-      <Map1></Map1>
     </div>     
   );
 }
