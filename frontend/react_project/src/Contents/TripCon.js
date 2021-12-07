@@ -15,7 +15,7 @@ class TripCon extends React.Component
     
 
     componentDidMount(){
-        axios.get('http://localhost:3000/api/vehicles')
+        axios.get('http://localhost:8080/api/trips/GetAll')
         .then(response => {
             this.setState({
                 tripInfo: response.data
@@ -30,9 +30,7 @@ class TripCon extends React.Component
         return(
             <div className="VehicleInfo">
                     <h1>Trip Info</h1>
-                    {/* <h3>Week 22 Avg: {marsInfo.temperature}°C</h3> */}
-                    <h2>Location: 5761BW Bakel, Van de Poelstraat<br/> Last Used: 24/11/2021<br/><br/>Average Score: 🌟🌟🌟🌟⭐ <br/> Distance Driven: 1102.2 km <br/></h2>
-                    {/* {tripInfo.map(info => <h2>SOL {info.dayID}<br/>{info.time }<br/><br/>{info.temperature}°C <br/> Humidity: {info.humidity}% <br/></h2>)} */}
+                    {tripInfo.map(info => <h2>Vehicle ID: {info.vehicleID}<br/><br/>Start Time: {info.startTime} <br/>End Time: {info.endTime}<br/><br/>ID: {info._id}</h2>)}
             </div>      
         )
     }
