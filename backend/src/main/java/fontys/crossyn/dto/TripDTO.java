@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class TripDTO {
-    private int tripID;
+    private String _id;
     private String vehicleID;
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
