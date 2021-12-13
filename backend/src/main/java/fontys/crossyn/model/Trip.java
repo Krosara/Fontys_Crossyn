@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class Trip {
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
     @OneToMany(mappedBy="trip")
-    private List<Packet> packets;
+    private ArrayList<Packet> packets;
 
     public Trip(String vehicleID) {
 
@@ -38,10 +39,15 @@ public class Trip {
     }
 
     public void addPacket(Packet packet){
-        if(packets.size() == 0 || !packet.equals(getLast())){
+       /* if(packets.size() == 0 || !packet.equals(getLast())){
             this.packets.add(packet);
-        }
-        //this.packets.add(packet);
+        }*/
+        this.packets.add(packet);
+    }
+
+    public void mergePackets(ArrayList<Packet> newPackets){
+        this.packets.addAll(newPackets);
+        this.endTime = packets.get(packets.size()-1).getDate();
     }
 
     public void finishTrip(){
@@ -55,12 +61,14 @@ public class Trip {
         }
         return true;
     }
-
+    public Packet getFirst(){
+        return packets.get(0);
+    }
     public Packet getLast(){
         return packets.get(packets.size()-1);
     }
 
-    public List<Packet> getPackets() {
+    public ArrayList<Packet> getPackets() {
         return packets;
     }
 
