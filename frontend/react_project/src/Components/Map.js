@@ -42,7 +42,7 @@ function Map() {
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
       //for (var i = 0; i < response.data.length; i++) {
-        const data = response.data[0];
+        const data = response.data[4];
         data.packets.forEach((element) => tripLoc.push([element.location.lon, element.location.lat]));
         console.log(tripLoc);
       //}

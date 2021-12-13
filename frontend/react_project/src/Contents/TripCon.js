@@ -1,84 +1,149 @@
 import { useEffect, useState, React } from 'react';
 import axios from 'axios';
+import mapboxgl from 'mapbox-gl';
+import { DataGrid } from '@mui/x-data-grid';
+
+
+const accessToken = 'sk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3g1M2U2azkyaDJ6MnRsYWZscnh5eDVkIn0.TeE7bH2dRuBGkFcW0ehE8A';
 
 const baseURL = 'http://localhost:8080/api/trips/GetAll';
 
-function TripCon() {
+const TripCon = (props) => {
+
+    const columns = [
+        {
+            field: 'id',
+            headerName: 'ID',
+            width: 70,
+        },
+        {
+            field: 'vehicleId',
+            headerName: 'Vehicle ID',
+            width: 70,
+        },
+        {
+            field: 'startTime',
+            headerName: 'Start time',
+            width: 70,
+        },
+        {
+            field: 'endTime',
+            headerName: 'End time',
+            width: 70,
+        },
+        {
+            field: 'startLoc',
+            headerName: 'Start location',
+            width: 70,
+        },
+        {
+            field: 'endLoc',
+            headerName: 'End location',
+            width: 70,
+        },
+    ];
+
+
 
     const [tripID, setTripID] = useState([]);
-    const kur = [];
     var lonS = [];
     var latS = [];
     var lonE = [];
     var latE = [];
     var data = [];
-    var cities = [];
+    var startCities = [];
+    var endCities = [];
+    /* var dataId = [];
+     var vehicleId = [];
+     var startTime = [];
+     var endTime = [];*/
+    var tableData = [];
+    var rows = [];
+    
 
     useEffect(async () => {
         await axios.get(baseURL).then((response) => {
             for (var i = 0; i < response.data.length; i++) {
+                tableData.push(response.data[i]);
                 data = response.data[i];
+                /*dataId.push(data._id);
+                vehicleId.push(data.vehicleID);
+                startTime.push(data.startTime);
+                endTime.push(data.endTime);*/
                 var dataSize = data.packets.length;
                 lonS.push([data.packets[0].location.lon])
                 latS.push([data.packets[0].location.lat])
                 lonE.push([data.packets[dataSize - 1].location.lon])
                 latE.push([data.packets[dataSize - 1].location.lat])
-                //tripLocE.push([data.packets[dataSize - 1].location.lon, data.packets[dataSize - 1].location.lat])
-                //data.packets.forEach((element) => tripLoc.push([element.location.lon, element.location.lat]));
             }
+
+            for (let i = 0; i < tableData.length; i++) {
+                var trip = {};
+                trip["id"] = tableData[i]._id;
+                trip["vehicleId"] = tableData[i].vehicleID;
+                trip["startTime"] = tableData[i].startTime;
+                trip["endTime"] = tableData[i].endTime;
+               // trip["startLoc"] = startCities[i];
+               // trip["endLoc"] = endCities[i];
+
+                rows.push([trip.id, trip.vehicleId, trip.startTime, trip.endTime])
+                console.log(trip);
+            };
+
             console.log(lonS, latS);
+            //console.log(dataId);
+            console.log(tableData);
 
         })
-        getCity();
+        getStartCity();
+        getEndCity();
 
     }, [])
 
-    /*useEffect (async () => {
-        await axios.get(baseURL).then((response) => {
-            response.data.forEach(element => {
-                kur.push(element._id)
-            })
-            setTripID(kur[0]);
-            console.log(tripID);
-        })
-        }, [])*/
-
-
-
-    function getCity() {
-        var xhr = new XMLHttpRequest();
+    const getStartCity = () => {
 
         for (let i = 0; i < lonS.length; i++) {
             var lng = lonS[i];
             var lat = latS[i];
-            xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=pk.9a909d40e4aece956d37017eaf13a43f&lat=" +
-                lat + "&lon=" + lng + "&format=json", true);
-            xhr.send();
-            xhr.onreadystatechange = processRequest;
-            xhr.addEventListener("readystatechange", processRequest, false);
-
-            function processRequest(e) {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    var city = response.address.city;
-                    cities.push(response.address.city);
-                    console.log(city);
-                    //return;
-                }
-                
-            }
+            axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`).then((response) => {
+                startCities.push(response.data.features[0].place_name);
+            })
         }
-        console.log(cities);
+        console.log(startCities);
     }
+
+    const getEndCity = () => {
+        for (let i = 0; i < lonE.length; i++) {
+            var lng = lonE[i];
+            var lat = latE[i];
+            axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`).then((response) => {
+                endCities.push(response.data.features[0].place_name);
+            })
+
+        }
+        console.log(endCities);
+    }
+
+    //useEffect(() => {
+
+    //})
+
 
 
     return (
-        <div className="VehicleInfo">
-            <h1>Trip Info</h1>
-            {/* <h3>Week 22 Avg: {marsInfo.temperature}°C</h3> */}
-            <h2>Trip ID: { }<br /> Last Used: 24/11/2021<br /><br />Average Score: 🌟🌟🌟🌟⭐ <br /> Distance Driven: 1102.2 km <br /></h2>
-            {/* {tripInfo.map(info => <h2>SOL {info.dayID}<br/>{info.time }<br/><br/>{info.temperature}°C <br/> Humidity: {info.humidity}% <br/></h2>)} */}
-        </div>
+
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            checkboxSelection={false}
+        />
+        //<div></div>
+
     )
 }
+
+
+
 export default TripCon;
