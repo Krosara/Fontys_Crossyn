@@ -1,8 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import TripCon from '../Contents/TripCon';
 
-<<<<<<< HEAD
-=======
 const columns = [
   {
     field: 'id',
@@ -36,17 +35,10 @@ const columns = [
   },
 ];
 
->>>>>>> origin/development-Kaloyan
 const TripsPage = () => {
   return (
     <div>
-      {/* <DataGrid
-        rows=
-        columns=
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-      /> */}
+      <TripCon></TripCon>
     </div>
   );
 };
