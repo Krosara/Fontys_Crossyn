@@ -18,15 +18,15 @@ import { useTheme } from '@mui/styles';
 const LandingPage = () => {
   const matches = useMediaQuery('(min-width:700px)');
 
-  const screenSize = () => {
-    if (matches) {
-      return `{margin: '0',
-        position: 'absolute',
-        top: '50%',
-        -ms-transform: 'translateY(-50%)',
-        transform: 'translateY(-50%)'}`;
-    }
-  };
+  // const screenSize = () => {
+  //   if (matches) {
+  //     return `{margin: '0',
+  //       position: 'absolute',
+  //       top: '50%',
+  //       -ms-transform: 'translateY(-50%)',
+  //       transform: 'translateY(-50%)'}`;
+  //   }
+  // };
 
   return (
     <Grid
