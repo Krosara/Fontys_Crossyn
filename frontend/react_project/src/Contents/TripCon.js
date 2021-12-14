@@ -56,7 +56,6 @@ const TripCon = (props) => {
      var endTime = [];*/
   var tableData = [];
   var rows = new Map();
-  var rows1 = [];
 
   useEffect(() => {
     axios
@@ -95,11 +94,10 @@ const TripCon = (props) => {
       })
       .finally(() => setTableRows(Array.from(rows.values())));
 
-    rows1.push(tableRows);
     // console.log(tableRows);
     getStartCity();
     getEndCity();
-
+    console.log(lonS[0]);
     // eslint-disable-next-line
   }, []);
 
@@ -115,7 +113,6 @@ const TripCon = (props) => {
           startCities.push(response.data.features[0].place_name);
         });
     }
-    // console.log(startCities);
   };
 
   const getEndCity = () => {

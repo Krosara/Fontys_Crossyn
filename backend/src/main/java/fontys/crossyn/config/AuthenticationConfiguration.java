@@ -13,7 +13,7 @@ public class AuthenticationConfiguration {
 
 
     //URLs
-    public static final String TRIPS_URL = "api/trips";
+    public static final String TRIPS_URL = "/api/trips";
     public static final String GET_TRIPS_URL = TRIPS_URL + "/GetAll";
     public static final String CREATE_TRIPS_URL = TRIPS_URL + "/CreateTrips";
     public static final String SIGN_UP_URL = "/account";
