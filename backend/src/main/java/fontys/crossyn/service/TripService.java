@@ -3,6 +3,7 @@ package fontys.crossyn.service;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 import fontys.crossyn.repository.TripRepository;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service @Slf4j
 public class TripService {
 
     @Autowired
@@ -19,6 +20,10 @@ public class TripService {
 
     public List<Trip> GetTrips(){
         List<Trip> trips = tripRepository.findAll();
+
+        for (Trip trip : trips) {
+            log.info(trip.toString());
+        }
 
         return trips;
     }

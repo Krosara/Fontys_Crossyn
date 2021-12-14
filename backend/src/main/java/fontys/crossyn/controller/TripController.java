@@ -55,6 +55,4 @@ public class TripController {
 
         tripService.DeleteTrip(tripId);
     }
-
-
 }

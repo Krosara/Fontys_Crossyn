@@ -5,6 +5,7 @@ import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 import fontys.crossyn.repository.PacketRepository;
 import fontys.crossyn.repository.TripRepository;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 public class TripCreator {
 
 
@@ -126,6 +127,7 @@ public class TripCreator {
                 tripRepository.save(trip);
             }
         }*/
+
         return finishTrips(trips);
     }
 
