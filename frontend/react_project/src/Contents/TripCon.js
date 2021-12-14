@@ -1,6 +1,5 @@
 import { useEffect, useState, React } from 'react';
 import axios from 'axios';
-import mapboxgl from 'mapbox-gl';
 import { DataGrid } from '@mui/x-data-grid';
 
 const accessToken =
@@ -12,48 +11,38 @@ const columns = [
   {
     field: 'id',
     headerName: 'ID',
-    width: '30px',
   },
   {
     field: 'vehicleId',
     headerName: 'Vehicle ID',
-    width: '30px',
   },
   {
     field: 'startTime',
     headerName: 'Start time',
-    width: '60px',
   },
   {
     field: 'endTime',
     headerName: 'End time',
-    width: '60px',
   },
   {
     field: 'startLoc',
     headerName: 'Start location',
-    width: '70px',
+    width: '240',
   },
   {
     field: 'endLoc',
     headerName: 'End location',
-    width: '70px',
+    width: '240',
   },
 ];
 const TripCon = (props) => {
-  const [tripID, setTripID] = useState([]);
   const [tableRows, setTableRows] = useState();
   var lonS = [];
   var latS = [];
   var lonE = [];
   var latE = [];
-  var data = [];
-  var startCities = [];
-  var endCities = [];
-  /* var dataId = [];
-     var vehicleId = [];
-     var startTime = [];
-     var endTime = [];*/
+  const [startCities, setStartCities] = useState([]);
+  const [endCities, setEndCities] = useState([]);
   var tableData = [];
   var rows = new Map();
 
@@ -64,17 +53,14 @@ const TripCon = (props) => {
         for (var i = 0; i < response.data.length; i++) {
           tableData.push(response.data[i]);
           let data = response.data[i];
-          /*dataId.push(data._id);
-                vehicleId.push(data.vehicleID);
-                startTime.push(data.startTime);
-                endTime.push(data.endTime);*/
           var dataSize = data.packets.length;
           lonS.push([data.packets[0].location.lon]);
           latS.push([data.packets[0].location.lat]);
           lonE.push([data.packets[dataSize - 1].location.lon]);
           latE.push([data.packets[dataSize - 1].location.lat]);
         }
-        // console.log(tableData);
+        getStartCity();
+        getEndCity();
       })
       .then(() => {
         for (let i = 0; i < tableData.length; i++) {
@@ -87,21 +73,16 @@ const TripCon = (props) => {
             endLoc: endCities[i],
           };
           rows.set(i, trip);
-
-          //   console.log(rows);
-          //   console.log(Array.from(rows.values()));
         }
       })
       .finally(() => setTableRows(Array.from(rows.values())));
-
-    // console.log(tableRows);
-    getStartCity();
-    getEndCity();
-    console.log(lonS[0]);
+    console.log(endCities[0]);
+    console.log(startCities[0]);
     // eslint-disable-next-line
   }, []);
 
   const getStartCity = () => {
+    var data = [];
     for (let i = 0; i < lonS.length; i++) {
       var lng = lonS[i];
       var lat = latS[i];
@@ -110,12 +91,15 @@ const TripCon = (props) => {
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
         .then((response) => {
-          startCities.push(response.data.features[0].place_name);
+          data.push(response.data.features[0].place_name);
         });
     }
+    setStartCities(data);
   };
 
   const getEndCity = () => {
+    var data = [];
+
     for (let i = 0; i < lonE.length; i++) {
       var lng = lonE[i];
       var lat = latE[i];
@@ -124,10 +108,10 @@ const TripCon = (props) => {
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
         .then((response) => {
-          endCities.push(response.data.features[0].place_name);
+          data.push(response.data.features[0].place_name);
         });
     }
-    // console.log(endCities);
+    setEndCities(data);
   };
 
   //useEffect(() => {
@@ -137,7 +121,7 @@ const TripCon = (props) => {
   return (
     <DataGrid
       rows={tableRows}
-      {...console.log(tableRows)}
+      // {...console.log(tableRows)}
       columns={columns}
       pageSize={10}
       //   rowsPerPageOptions={[10]}
