@@ -8,6 +8,7 @@ import fontys.crossyn.repository.PacketRepository;
 import fontys.crossyn.service.PacketService;
 import fontys.crossyn.service.TripCreator;
 import fontys.crossyn.service.JSONReader;
+import fontys.crossyn.service.TripMerger;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -39,10 +40,13 @@ public class CrossynApplication {
 
         JSONReader reader = new JSONReader();
         TripCreator tripCreator = new TripCreator();
+        TripMerger tripMerger = new TripMerger();
 
         ArrayList<Packet> packetList = reader.readJsonFile();
 
         HashMap<String, ArrayList<Trip>> trips = tripCreator.createTrips(packetList);
+        System.out.println(-1);
+        //HashMap<String, ArrayList<Trip>> mergedTrips = tripMerger.mergeTrips(trips);
 
         ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
 //        JSONReader jsonReader = new JSONReader();
