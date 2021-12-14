@@ -30,6 +30,7 @@ public class PacketController {
 
     @GetMapping
     public List<PacketDTO> getAllPackets(){
-        return packetService.list().stream().map(packet -> modelMapper.map(packet, PacketDTO.class)).toList();
+        //return packetService.list().stream().map(packet -> modelMapper.map(packet, PacketDTO.class)).toList();
+        return null;
     }
 }

@@ -31,7 +31,8 @@ public class TripController {
 
     @GetMapping
     public List<TripDTO> getAllTrips(){
-        return tripCreator.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).toList();
+        //return tripCreator.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).toList();
+        return null;
     }
 
     @PostMapping
