@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
+import fontys.crossyn.model.User;
 import fontys.crossyn.repository.PacketRepository;
+import fontys.crossyn.repository.UserRepository;
 import fontys.crossyn.service.PacketService;
 import fontys.crossyn.service.TripCreator;
 import fontys.crossyn.service.JSONReader;
@@ -33,6 +35,12 @@ public class CrossynApplication {
         return new JSONReader();
     }
 
+    @Bean
+    CommandLineRunner commandLineRunner(UserRepository userRepository) {
+        return args -> {
+            userRepository.save(new User("kur", "kur"));
+        };
+    }
     public static void main(String[] args) {
 
         //IOService ioService = new IOService();
