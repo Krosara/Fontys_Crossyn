@@ -1,40 +1,153 @@
-import React from 'react';
+import { useEffect, useState, React } from 'react';
 import axios from 'axios';
+import mapboxgl from 'mapbox-gl';
+import { DataGrid } from '@mui/x-data-grid';
 
-class TripCon extends React.Component
-{
+const accessToken =
+  'sk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3g1M2U2azkyaDJ6MnRsYWZscnh5eDVkIn0.TeE7bH2dRuBGkFcW0ehE8A';
 
+const baseURL = 'http://localhost:8080/api/trips/GetAll';
 
-    constructor(props){
-        super(props)
+const columns = [
+  {
+    field: 'id',
+    headerName: 'ID',
+    width: '30px',
+  },
+  {
+    field: 'vehicleId',
+    headerName: 'Vehicle ID',
+    width: '30px',
+  },
+  {
+    field: 'startTime',
+    headerName: 'Start time',
+    width: '60px',
+  },
+  {
+    field: 'endTime',
+    headerName: 'End time',
+    width: '60px',
+  },
+  {
+    field: 'startLoc',
+    headerName: 'Start location',
+    width: '70px',
+  },
+  {
+    field: 'endLoc',
+    headerName: 'End location',
+    width: '70px',
+  },
+];
+const TripCon = (props) => {
+  const [tripID, setTripID] = useState([]);
+  const [tableRows, setTableRows] = useState();
+  var lonS = [];
+  var latS = [];
+  var lonE = [];
+  var latE = [];
+  var data = [];
+  var startCities = [];
+  var endCities = [];
+  /* var dataId = [];
+     var vehicleId = [];
+     var startTime = [];
+     var endTime = [];*/
+  var tableData = [];
+  var rows = new Map();
+  var rows1 = [];
 
-        this.state = {
-            tripInfo: []
+  useEffect(() => {
+    axios
+      .get(baseURL)
+      .then((response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          tableData.push(response.data[i]);
+          let data = response.data[i];
+          /*dataId.push(data._id);
+                vehicleId.push(data.vehicleID);
+                startTime.push(data.startTime);
+                endTime.push(data.endTime);*/
+          var dataSize = data.packets.length;
+          lonS.push([data.packets[0].location.lon]);
+          latS.push([data.packets[0].location.lat]);
+          lonE.push([data.packets[dataSize - 1].location.lon]);
+          latE.push([data.packets[dataSize - 1].location.lat]);
         }
-    }
-    
+        // console.log(tableData);
+      })
+      .then(() => {
+        for (let i = 0; i < tableData.length; i++) {
+          const trip = {
+            id: i + 1,
+            vehicleId: tableData[i].vehicleID,
+            startTime: tableData[i].startTime,
+            endTime: tableData[i].endTime,
+            startLoc: startCities[i],
+            endLoc: endCities[i],
+          };
+          rows.set(i, trip);
 
-    componentDidMount(){
-        axios.get('http://localhost:3000/api/vehicles')
-        .then(response => {
-            this.setState({
-                tripInfo: response.data
-            })
-            console.log(response.data)
-        })
-    }
+          //   console.log(rows);
+          //   console.log(Array.from(rows.values()));
+        }
+      })
+      .finally(() => setTableRows(Array.from(rows.values())));
 
-    render()
-    {
-        const tripInfo = this.state.tripInfo
-        return(
-            <div className="VehicleInfo">
-                    <h1>Trip Info</h1>
-                    {/* <h3>Week 22 Avg: {marsInfo.temperature}°C</h3> */}
-                    <h2>Location: 5761BW Bakel, Van de Poelstraat<br/> Last Used: 24/11/2021<br/><br/>Average Score: 🌟🌟🌟🌟⭐ <br/> Distance Driven: 1102.2 km <br/></h2>
-                    {/* {tripInfo.map(info => <h2>SOL {info.dayID}<br/>{info.time }<br/><br/>{info.temperature}°C <br/> Humidity: {info.humidity}% <br/></h2>)} */}
-            </div>      
+    rows1.push(tableRows);
+    // console.log(tableRows);
+    getStartCity();
+    getEndCity();
+
+    // eslint-disable-next-line
+  }, []);
+
+  const getStartCity = () => {
+    for (let i = 0; i < lonS.length; i++) {
+      var lng = lonS[i];
+      var lat = latS[i];
+      axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
+        .then((response) => {
+          startCities.push(response.data.features[0].place_name);
+        });
     }
-}
+    // console.log(startCities);
+  };
+
+  const getEndCity = () => {
+    for (let i = 0; i < lonE.length; i++) {
+      var lng = lonE[i];
+      var lat = latE[i];
+      axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
+        )
+        .then((response) => {
+          endCities.push(response.data.features[0].place_name);
+        });
+    }
+    // console.log(endCities);
+  };
+
+  //useEffect(() => {
+
+  //})
+
+  return (
+    <DataGrid
+      rows={tableRows}
+      {...console.log(tableRows)}
+      columns={columns}
+      pageSize={10}
+      //   rowsPerPageOptions={[10]}
+      checkboxSelection={false}
+      sx={{ mt: '4rem', height: '500px' }}
+    />
+  );
+};
+
 export default TripCon;

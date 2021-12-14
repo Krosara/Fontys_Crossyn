@@ -16,17 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+
 public class TripCreator {
 
-    @Autowired
-    TripRepository tripRepository;
 
-    public List<Trip> GetTrips(){
-        List<Trip> trips = tripRepository.findAll();
-
-        return trips;
-    }
 
 
    /* public HashMap<String, ArrayList<Packet>> packetSplitter(ArrayList<Packet> packets){

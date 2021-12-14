@@ -17,14 +17,13 @@ import java.util.Objects;
 @Data
 @Document
 public class Trip {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tripID;
+    private String _id;
     private String vehicleID;
     @Getter
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
-    @OneToMany(mappedBy="trip")
     private ArrayList<Packet> packets;
 
     public Trip(String vehicleID) {
@@ -79,7 +78,6 @@ public class Trip {
     @Override
     public String toString() {
         return "Trip{" +
-                "tripID=" + tripID +
                 ", vehicleID='" + vehicleID + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
