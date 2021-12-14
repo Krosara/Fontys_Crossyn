@@ -12,33 +12,37 @@ const columns = [
   {
     field: 'id',
     headerName: 'ID',
+    width: '30px',
   },
   {
     field: 'vehicleId',
     headerName: 'Vehicle ID',
+    width: '30px',
   },
   {
     field: 'startTime',
     headerName: 'Start time',
+    width: '60px',
   },
   {
     field: 'endTime',
     headerName: 'End time',
+    width: '60px',
   },
   {
     field: 'startLoc',
     headerName: 'Start location',
+    width: '70px',
   },
   {
     field: 'endLoc',
     headerName: 'End location',
-    width: '100',
+    width: '70px',
   },
 ];
-
 const TripCon = (props) => {
   const [tripID, setTripID] = useState([]);
-  const [tableRows, setTableRows] = useState([]);
+  const [tableRows, setTableRows] = useState();
   var lonS = [];
   var latS = [];
   var lonE = [];
@@ -139,11 +143,10 @@ const TripCon = (props) => {
       {...console.log(tableRows)}
       columns={columns}
       pageSize={10}
-      rowsPerPageOptions={[10]}
+      //   rowsPerPageOptions={[10]}
       checkboxSelection={false}
-      sx={{ mt: '4rem' }}
+      sx={{ mt: '4rem', height: '500px' }}
     />
-    //<div></div>
   );
 };
 
