@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,15 +17,17 @@ import java.util.Objects;
 @Data
 @Document
 public class Trip {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tripID;
+    private String _id;
     private String vehicleID;
     @Getter
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
-    @OneToMany(mappedBy="trip")
     private List<Packet> packets;
+    private int averageSpeed;
+    private int topSpeed;
+
 
     public Trip(String vehicleID) {
 
@@ -38,10 +41,15 @@ public class Trip {
     }
 
     public void addPacket(Packet packet){
-        if(packets.size() == 0 || !packet.equals(getLast())){
+       /* if(packets.size() == 0 || !packet.equals(getLast())){
             this.packets.add(packet);
-        }
-        //this.packets.add(packet);
+        }*/
+        this.packets.add(packet);
+    }
+
+    public void mergePackets(ArrayList<Packet> newPackets){
+        this.packets.addAll(newPackets);
+        this.endTime = packets.get(packets.size()-1).getDate();
     }
 
     public void finishTrip(){
@@ -55,7 +63,9 @@ public class Trip {
         }
         return true;
     }
-
+    public Packet getFirst(){
+        return packets.get(0);
+    }
     public Packet getLast(){
         return packets.get(packets.size()-1);
     }
@@ -71,7 +81,6 @@ public class Trip {
     @Override
     public String toString() {
         return "Trip{" +
-                "tripID=" + tripID +
                 ", vehicleID='" + vehicleID + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
