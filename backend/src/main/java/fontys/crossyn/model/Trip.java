@@ -47,7 +47,7 @@ public class Trip {
         this.packets.add(packet);
     }
 
-    public void mergePackets(ArrayList<Packet> newPackets){
+    public void mergePackets(List<Packet> newPackets){
         this.packets.addAll(newPackets);
         this.endTime = packets.get(packets.size()-1).getDate();
     }
