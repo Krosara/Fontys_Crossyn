@@ -30,13 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,
-                        AuthenticationConfiguration.SIGN_UP_URL,
-                        AuthenticationConfiguration.LOGIN_URL
-                )
-                .permitAll()
+                .antMatchers(HttpMethod.POST, AuthenticationConfiguration.CREATE_TRIPS_URL).permitAll()
                 .antMatchers(HttpMethod.GET,
-                        AuthenticationConfiguration.REFRESH_URL
+                        AuthenticationConfiguration.REFRESH_URL,
+                        AuthenticationConfiguration.GET_TRIPS_URL
                 )
                 .permitAll()
                 .anyRequest().authenticated()
