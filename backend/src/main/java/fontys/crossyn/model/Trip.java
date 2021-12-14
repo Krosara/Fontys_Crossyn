@@ -24,7 +24,10 @@ public class Trip {
     @Getter
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
-    private ArrayList<Packet> packets;
+    private List<Packet> packets;
+    private int averageSpeed;
+    private int topSpeed;
+
 
     public Trip(String vehicleID) {
 
@@ -67,7 +70,7 @@ public class Trip {
         return packets.get(packets.size()-1);
     }
 
-    public ArrayList<Packet> getPackets() {
+    public List<Packet> getPackets() {
         return packets;
     }
 
