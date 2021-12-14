@@ -2,6 +2,7 @@ package fontys.crossyn.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.Nullable;
@@ -61,6 +62,7 @@ public class Packet {
     public ZonedDateTime getDate() {
         return date;
     }
+    public int getRoadType(){return this.roadType; }
     @Override
     public String toString() {
         return "Packet{" +

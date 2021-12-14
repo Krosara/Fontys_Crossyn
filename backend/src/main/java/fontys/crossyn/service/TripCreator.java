@@ -5,6 +5,7 @@ import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 import fontys.crossyn.repository.PacketRepository;
 import fontys.crossyn.repository.TripRepository;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 public class TripCreator {
 
 
@@ -48,9 +49,9 @@ public class TripCreator {
         return currTrips;
     }*/
     public boolean isNewTrip(Packet packet1, Packet packet2){
-        if(packet2.getIgnition() == IgnitionStates.FALSE){
+        /*if(packet2.getIgnition() == IgnitionStates.FALSE){
             return true;
-        }
+        }*/
         ZonedDateTime time1 = packet1.getDate();
         ZonedDateTime time2 = packet2.getDate();
         long difference = Duration.between(time2, time1).toSeconds();
@@ -72,7 +73,7 @@ public class TripCreator {
                 ArrayList<Trip> currTrips = finishLastTrip(entry.getValue());
                 finished.put(vehicleId, currTrips);
             }
-        return trips;
+        return finished;
     }
     public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets) {
 
@@ -126,6 +127,7 @@ public class TripCreator {
                 tripRepository.save(trip);
             }
         }*/
+
         return finishTrips(trips);
     }
 
