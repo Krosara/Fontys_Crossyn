@@ -3,6 +3,7 @@ package fontys.crossyn.controller;
 
 import com.google.gson.JsonArray;
 import fontys.crossyn.dto.TripDTO;
+import fontys.crossyn.exception.ApiRequestException;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 import fontys.crossyn.service.JSONReader;
@@ -34,26 +35,47 @@ public class TripController {
 
     @GetMapping("/GetAll")
     public ResponseEntity<List<TripDTO>>  getAllTrips(){
-        List<TripDTO> trips = tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
+        try{
+            List<TripDTO> trips = tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
             return new ResponseEntity<>(trips, HttpStatus.OK);
+        }
+        catch (Exception e){
+            throw new ApiRequestException("Cant get all Trips");
+        }
+
 
     }
 
     @PostMapping("/CreateTrips")
     public void CreateTrips(){
 
-        JSONReader reader = new JSONReader();
+        try{
+            JSONReader reader = new JSONReader();
 
-        ArrayList<Packet> packetList = reader.readJsonFile();
+            ArrayList<Packet> packetList = reader.readJsonFile();
 
-        tripService.CreateTrips(packetList);
+            tripService.CreateTrips(packetList);
+        }
+        catch (Exception e){
+            throw new ApiRequestException("Cant create trips");
+        }
+
 
     }
 
     @DeleteMapping("/Delete")
     public void DeleteTrip(@RequestBody String tripId){
 
-        tripService.DeleteTrip(tripId);
+        try{
+            throw new ApiRequestException("Cant create trips");
+
+        }
+        catch (Exception e){
+            throw new ApiRequestException("Cant create trips");
+            //tripService.DeleteTrip(tripId);
+        }
+
+
     }
 
 

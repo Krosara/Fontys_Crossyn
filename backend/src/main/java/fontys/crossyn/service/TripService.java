@@ -17,24 +17,32 @@ public class TripService {
     @Autowired
     TripRepository tripRepository;
 
+    public TripService(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
+
     public List<Trip> GetTrips(){
         List<Trip> trips = tripRepository.findAll();
 
         return trips;
     }
 
+
     public void CreateTrips(ArrayList<Packet> packets){
         TripCreator tripCreator = new TripCreator();
+        TripEnrichment tripEnrichment = new TripEnrichment();
 
         HashMap<String, ArrayList<Trip>> trips = tripCreator.createTrips(packets);
 
         for (Map.Entry<String, ArrayList<Trip>> entry : trips.entrySet()) {
             for (Trip trip: entry.getValue()) {
-                tripRepository.insert(trip);
+                Trip enrichedTrip = tripEnrichment.addAvrgAndTopSpeed(trip);
+                tripRepository.insert(enrichedTrip);
             }
         }
 
     }
+
 
     public void DeleteTrip(String tripId){
        tripRepository.deleteById(tripId);
