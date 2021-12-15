@@ -10,7 +10,6 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username);
     login(username, password);
   };
   return (
@@ -39,6 +38,7 @@ const LoginPage = () => {
             required
             id="outlined-error-helper-text"
             label="Password"
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
