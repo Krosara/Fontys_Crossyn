@@ -77,12 +77,12 @@ public class CrossynApplication {
         SpringApplication.run(CrossynApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(UserService userService) {
-        return args -> {
-            userService.createUser(new UserDTO("test", "test","test", "test@gmail.com"));
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(UserService userService) {
+//        return args -> {
+//            userService.createUser(new UserDTO("test", "test","test", "test@gmail.com"));
+//        };
+//    }
 
 //    @Bean
 //    CommandLineRunner commandLineRunner(PacketRepository pr, JSONReader reader) {
