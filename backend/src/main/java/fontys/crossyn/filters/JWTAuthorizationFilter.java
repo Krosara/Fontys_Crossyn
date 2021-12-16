@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -44,10 +45,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(AuthenticationConfiguration.TOKEN_PREFIX, ""));
             String username = verify.getSubject();
-            String role = verify.getClaim("role").asString();
+           // String role = verify.getClaim("role").asString();
 
             if(username != null){
-                return new UsernamePasswordAuthenticationToken(username, null, getAuthorities(role));
+                return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList()/*getAuthorities(role)*/);
             }
             return null;
         }
