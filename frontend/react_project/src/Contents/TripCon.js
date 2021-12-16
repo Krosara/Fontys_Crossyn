@@ -11,6 +11,7 @@ const columns = [
   {
     field: 'id',
     headerName: 'ID',
+    width: '15',
   },
   {
     field: 'vehicleId',
@@ -123,10 +124,13 @@ const TripCon = (props) => {
       rows={tableRows}
       // {...console.log(tableRows)}
       columns={columns}
-      pageSize={10}
-      //   rowsPerPageOptions={[10]}
       checkboxSelection={false}
-      sx={{ mt: '4rem', height: '500px' }}
+      sx={{ mt: '4rem' }}
+      // autoPageSize={true}
+      pageSize={10}
+      disableSelectionOnClick
+      disableColumnMenu
+      autoHeight
     />
   );
 };
