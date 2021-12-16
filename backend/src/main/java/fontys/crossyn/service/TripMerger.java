@@ -7,10 +7,7 @@ import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TripMerger {
 
@@ -41,7 +38,7 @@ public class TripMerger {
     }
 
     private Trip mergeTrips(Trip trip1, Trip trip2){
-        ArrayList<Packet> trip2Packets = trip2.getPackets();
+        List<Packet> trip2Packets = trip2.getPackets();
         trip1.mergePackets(trip2Packets);
         return trip1;
     }

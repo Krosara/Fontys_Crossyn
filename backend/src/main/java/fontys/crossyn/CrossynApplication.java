@@ -2,13 +2,13 @@ package fontys.crossyn;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import fontys.crossyn.dto.UserDTO;
 import fontys.crossyn.model.Packet;
 import fontys.crossyn.model.Trip;
+import fontys.crossyn.model.User;
 import fontys.crossyn.repository.PacketRepository;
-import fontys.crossyn.service.PacketService;
-import fontys.crossyn.service.TripCreator;
-import fontys.crossyn.service.JSONReader;
-import fontys.crossyn.service.TripMerger;
+import fontys.crossyn.repository.UserRepository;
+import fontys.crossyn.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -76,6 +76,13 @@ public class CrossynApplication {
 
         SpringApplication.run(CrossynApplication.class, args);
     }
+
+//    @Bean
+//    CommandLineRunner commandLineRunner(UserService userService) {
+//        return args -> {
+//            userService.createUser(new UserDTO("test", "test","test", "test@gmail.com"));
+//        };
+//    }
 
 //    @Bean
 //    CommandLineRunner commandLineRunner(PacketRepository pr, JSONReader reader) {
