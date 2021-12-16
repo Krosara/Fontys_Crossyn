@@ -126,7 +126,6 @@ const TripCon = (props) => {
       columns={columns}
       checkboxSelection={false}
       sx={{ mt: '4rem' }}
-      // autoPageSize={true}
       pageSize={10}
       disableSelectionOnClick
       disableColumnMenu
