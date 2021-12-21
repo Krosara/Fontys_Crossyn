@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="447d8750-81bd-4720-acd4-e112740be968" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/backend">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="21JblrqGLzZdHG3C2xBfaAHwyL6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration name="CrossynApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="crossyn.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="fontys.crossyn.CrossynApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="447d8750-81bd-4720-acd4-e112740be968" name="Changes" comment="" />
+      <created>1637662292162</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637662292162</updated>
+      <workItem from="1637662293517" duration="7658000" />
+      <workItem from="1637679567928" duration="20000" />
+      <workItem from="1637679989529" duration="664000" />
+      <workItem from="1637704682181" duration="1027000" />
+      <workItem from="1637747281534" duration="849000" />
+      <workItem from="1637751481126" duration="1138000" />
+      <workItem from="1637763420116" duration="12000" />
+      <workItem from="1637852633652" duration="204000" />
+      <workItem from="1638122860287" duration="4333000" />
+      <workItem from="1638183599242" duration="52000" />
+      <workItem from="1638184142358" duration="9785000" />
+      <workItem from="1638214153134" duration="4023000" />
+      <workItem from="1638359464077" duration="2032000" />
+      <workItem from="1638870599469" duration="1307000" />
+      <workItem from="1639409828590" duration="2085000" />
+      <workItem from="1639469324205" duration="59000" />
+      <workItem from="1639471439264" duration="445000" />
+      <workItem from="1639474555804" duration="1358000" />
+      <workItem from="1639475938856" duration="3000" />
+      <workItem from="1639513821128" duration="17000" />
+      <workItem from="1639513905365" duration="34000" />
+      <workItem from="1639513958025" duration="72000" />
+      <workItem from="1639514054226" duration="12000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/fontys/crossyn/CrossynApplication.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="trips" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

@@ -33,6 +33,7 @@ public class TripController {
         this.tripService = tripCreator;
     }
 
+
     @GetMapping("/GetAll")
     public ResponseEntity<List<TripDTO>>  getAllTrips(){
         try{
@@ -77,6 +78,4 @@ public class TripController {
 
 
     }
-
-
 }

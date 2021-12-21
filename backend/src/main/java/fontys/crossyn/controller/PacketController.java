@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping("/api/packet")
 @CrossOrigin("http://localhost:3000/")
@@ -28,6 +29,7 @@ public class PacketController {
 
     @GetMapping
     public List<PacketDTO> getAllPackets(){
+
         return packetService.list().stream().map(packet -> modelMapper.map(packet, PacketDTO.class)).collect(Collectors.toList());
     }
 }

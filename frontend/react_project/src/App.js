@@ -1,37 +1,24 @@
-import './App.css';
-import React from "react";
-import Home from './Home';
-import Trips from './Trips';
-import Vehicle from './Vehicle';
-import Account from './Account';
+import MapPage from './pages/MapPage';
+import LandingPage from './pages/LandingPage';
+import ProfilePage from './pages/ProfilePage';
+import TripsPage from './pages/TripsPage';
+import Navbar from './Components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
 
-function App() {
-  
-  if (window.location.href.indexOf("home") > -1) {
+const App = () => {
   return (
-    <Home></Home>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<LandingPage />}></Route>
+        <Route path="/map" element={<MapPage />}></Route>
+        <Route path="/profile" element={<ProfilePage />}></Route>
+        <Route path="/trips" element={<TripsPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+      </Routes>
+    </Router>
   );
-  }
-  if (window.location.href.indexOf("trips") > -1) {
-    return (
-      <Trips></Trips>
-    );
-    }
-    if (window.location.href.indexOf("vehicle") > -1) {
-      return (
-        <Vehicle></Vehicle>
-      );
-      }    
-      if (window.location.href.indexOf("account") > -1) {
-        return (
-          <Account></Account>
-        );
-        }          
-    else{
-      return (
-        <Home></Home>
-        );
-    }
-}
-   
+};
+
 export default App;

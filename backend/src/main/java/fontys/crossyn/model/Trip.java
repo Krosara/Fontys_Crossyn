@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,10 +41,15 @@ public class Trip {
     }
 
     public void addPacket(Packet packet){
-        if(packets.size() == 0 || !packet.equals(getLast())){
+       /* if(packets.size() == 0 || !packet.equals(getLast())){
             this.packets.add(packet);
-        }
-        //this.packets.add(packet);
+        }*/
+        this.packets.add(packet);
+    }
+
+    public void mergePackets(List<Packet> newPackets){
+        this.packets.addAll(newPackets);
+        this.endTime = packets.get(packets.size()-1).getDate();
     }
 
     public void finishTrip(){
@@ -57,7 +63,9 @@ public class Trip {
         }
         return true;
     }
-
+    public Packet getFirst(){
+        return packets.get(0);
+    }
     public Packet getLast(){
         return packets.get(packets.size()-1);
     }
