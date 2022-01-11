@@ -1,5 +1,17 @@
 version: "3.9"
 services:
+    crossynAPI:
+        container_name: fontys_crossyn-backend
+        image: krosara/fontys_crossyn-backend
+        build: ./
+        ports:
+          - "8080:8080"
+        depends_on:
+          - "mongodb"
+          - "mongo-express"
+        environment:
+          - SPRING_DATA_MONGODB_DATABASE=crossyn
+          - SPRING_DATA_MONGODB_PORT=27017
     mongodb:
         image: mongo
         container_name: mongodb
