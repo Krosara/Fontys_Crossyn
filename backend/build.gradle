@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.3"
+    id 'jacoco'
 }
 
 group = 'fontys'
@@ -39,6 +41,37 @@ dependencies {
 
     testImplementation "org.assertj:assertj-core:3.21.0"
     testImplementation "org.mockito:mockito-core:3.+"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "Krosara_Fontys_Crossyn"
+        property "sonar.organization", "krosara"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.enabled true
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "fontys/crossyn/exception/*",
+                    "fontys/crossyn/dto/*DTO.*"
+            ])
+        }))
+    }
+}
+
+test.finalizedBy jacocoTestReport
+
+tasks.named('sonarqube').configure {
+    dependsOn test
 }
 
 test {
