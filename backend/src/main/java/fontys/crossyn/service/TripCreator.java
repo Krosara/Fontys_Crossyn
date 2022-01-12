@@ -49,9 +49,9 @@ public class TripCreator {
         return currTrips;
     }*/
     public boolean isNewTrip(Packet packet1, Packet packet2){
-        if(packet2.getIgnition() == IgnitionStates.FALSE){
+        /*if(packet2.getIgnition() == IgnitionStates.FALSE){
             return true;
-        }
+        }*/
         ZonedDateTime time1 = packet1.getDate();
         ZonedDateTime time2 = packet2.getDate();
         long difference = Duration.between(time2, time1).toSeconds();
@@ -73,7 +73,7 @@ public class TripCreator {
                 ArrayList<Trip> currTrips = finishLastTrip(entry.getValue());
                 finished.put(vehicleId, currTrips);
             }
-        return trips;
+        return finished;
     }
     public HashMap<String, ArrayList<Trip>> createTrips(ArrayList<Packet> packets) {
 
