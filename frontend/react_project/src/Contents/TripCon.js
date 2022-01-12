@@ -20,20 +20,30 @@ const columns = [
   {
     field: 'startTime',
     headerName: 'Start time',
+    width: '210',
   },
   {
     field: 'endTime',
     headerName: 'End time',
+    width: '210',
   },
   {
     field: 'startLoc',
     headerName: 'Start location',
-    width: '240',
+    width: '400',
   },
   {
     field: 'endLoc',
     headerName: 'End location',
-    width: '240',
+    width: '400',
+  },
+  {
+    field: 'avgSpeed',
+    headerName: 'Average speed',
+  },
+  {
+    field: 'topSpeed',
+    headerName: 'Top speed',
   },
 ];
 const TripCon = (props) => {
@@ -60,6 +70,9 @@ const TripCon = (props) => {
           lonE.push([data.packets[dataSize - 1].location.lon]);
           latE.push([data.packets[dataSize - 1].location.lat]);
         }
+        // console.log(response.data);
+      })
+      .then(() => {
         getStartCity();
         getEndCity();
       })
@@ -72,22 +85,24 @@ const TripCon = (props) => {
             endTime: tableData[i].endTime,
             startLoc: startCities[i],
             endLoc: endCities[i],
+            avgSpeed: tableData[i].averageSpeed,
+            topSpeed: tableData[i].topSpeed,
           };
           rows.set(i, trip);
         }
       })
       .finally(() => setTableRows(Array.from(rows.values())));
     console.log(endCities[0]);
-    console.log(startCities[0]);
+    // console.log(startCities[0]);
     // eslint-disable-next-line
   }, []);
 
-  const getStartCity = () => {
+  const getStartCity = async () => {
     var data = [];
     for (let i = 0; i < lonS.length; i++) {
       var lng = lonS[i];
       var lat = latS[i];
-      axios
+      await axios
         .get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
@@ -98,13 +113,13 @@ const TripCon = (props) => {
     setStartCities(data);
   };
 
-  const getEndCity = () => {
+  const getEndCity = async () => {
     var data = [];
 
     for (let i = 0; i < lonE.length; i++) {
       var lng = lonE[i];
       var lat = latE[i];
-      axios
+      await axios
         .get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
@@ -122,7 +137,6 @@ const TripCon = (props) => {
   return (
     <DataGrid
       rows={tableRows}
-      // {...console.log(tableRows)}
       columns={columns}
       checkboxSelection={false}
       sx={{ mt: '4rem' }}
