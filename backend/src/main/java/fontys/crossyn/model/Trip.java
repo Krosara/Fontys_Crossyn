@@ -25,6 +25,8 @@ public class Trip {
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
     private List<Packet> packets;
+
+
     private int averageSpeed;
     private int topSpeed;
 
@@ -38,6 +40,14 @@ public class Trip {
 
     public Trip() {
 
+    }
+
+    public int getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public int getTopSpeed() {
+        return topSpeed;
     }
 
     public void addPacket(Packet packet){

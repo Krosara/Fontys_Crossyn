@@ -10,15 +10,16 @@ import fontys.crossyn.repository.PacketRepository;
 import fontys.crossyn.repository.UserRepository;
 import fontys.crossyn.service.*;
 import org.modelmapper.ModelMapper;
+import org.slf4j.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 @SpringBootApplication
 public class CrossynApplication {
@@ -65,16 +66,35 @@ public class CrossynApplication {
 //
 //        ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
 
-        for(Trip t: currTrips){
-            System.out.println(t);
-            System.out.println(t.getPackets().get(0));
-            System.out.println(t.getPackets().get(t.getPackets().size()-1));
-            System.out.println();
-        }
 
 
 
         SpringApplication.run(CrossynApplication.class, args);
+
+        Logger logger = LoggerFactory.getLogger(CrossynApplication.class);
+        logger.info("--------------");
+        logger.info("--------------");
+        logger.info("--------------");
+        logger.info("--------------");
+        logger.info("--------------");
+        logger.info("--------------");
+        logger.info("Logging Starts");
+
+
+        for(Trip t: currTrips){
+            logger.info(t.toString());
+            logger.info("First Packet: " +t.getPackets().get(0));
+            logger.info("Last Packet: " + t.getPackets().get(t.getPackets().size()-1));
+            logger.info("Top Speed: " + t.getTopSpeed());
+            logger.info("Average Speed: " + t.getAverageSpeed());
+
+            logger.info("--------------");
+        }
+        logger.info("Total Trips: " + currTrips.stream().count());
+
+
+
+        logger.info("Application has been fully build.");
     }
 
 //    @Bean

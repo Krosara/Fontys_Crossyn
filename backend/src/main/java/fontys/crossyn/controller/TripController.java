@@ -38,6 +38,7 @@ public class TripController {
     public ResponseEntity<List<TripDTO>>  getAllTrips(){
         try{
             List<TripDTO> trips = tripService.GetTrips().stream().map(trip -> modelMapper.map(trip, TripDTO.class)).collect(Collectors.toList());
+
             return new ResponseEntity<>(trips, HttpStatus.OK);
         }
         catch (Exception e){
