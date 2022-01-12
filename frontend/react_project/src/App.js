@@ -5,6 +5,8 @@ import TripsPage from './pages/TripsPage';
 import Navbar from './Components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import MeasureDistanceTestPAGE from './pages/MeasureDistanceTestPAGE';
+
 
 const App = () => {
   return (
@@ -12,6 +14,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<LandingPage />}></Route>
+        <Route exact path="/test" element={<MeasureDistanceTestPAGE />}></Route>
         <Route path="/map" element={<MapPage />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/trips" element={<TripsPage />}></Route>
