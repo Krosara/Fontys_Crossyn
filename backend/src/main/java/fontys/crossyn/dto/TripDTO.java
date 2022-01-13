@@ -15,4 +15,6 @@ public class TripDTO {
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
     private List<Packet> packets;
+    private int averageSpeed;
+    private int topSpeed;
 }
