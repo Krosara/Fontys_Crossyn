@@ -24,7 +24,7 @@ const Navbar = () => {
         </MaterialLink>
         <MaterialLink
           component={RouterLink}
-          to="/profile"
+          to="/login"
           underline="none"
           sx={{
             color: 'white',
@@ -33,7 +33,7 @@ const Navbar = () => {
           }}
         >
           <Button variant="contained" disableElevation>
-            Profile
+            Login
           </Button>
         </MaterialLink>
       </Toolbar>
