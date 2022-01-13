@@ -31,7 +31,7 @@ public class UserService {
         newAccount.setUsername(userDTO.getUsername());
         newAccount.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         newAccount.setEmail(userDTO.getEmail());
-        //newAccount.setRole("USER");
+        newAccount.setRole(userDTO.getRole());
         userRepository.save(newAccount);
     }
 }
