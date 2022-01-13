@@ -2,6 +2,7 @@ import { useEffect, useState, React, useRef } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { ConstructionOutlined } from '@mui/icons-material';
+import { MeasureDistances } from '../services/MeasureDistances';
 
 const accessToken =
   'sk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3g1M2U2azkyaDJ6MnRsYWZscnh5eDVkIn0.TeE7bH2dRuBGkFcW0ehE8A';
@@ -39,8 +40,14 @@ const columns = [
     width: '400',
   },
   {
+    field: 'distance',
+    headerName: 'Straight-line distance',
+    width: '180',
+  },
+  {
     field: 'avgSpeed',
     headerName: 'Average speed',
+    width: '130',
   },
   {
     field: 'topSpeed',
@@ -99,9 +106,11 @@ const TripCon = (props) => {
               endTime: tableData[i].endTime,
               startLoc: startCities[i],
               endLoc: endCities[i],
-              avgSpeed: tableData[i].averageSpeed,
-              topSpeed: tableData[i].topSpeed,
+              distance: `${getDistance(i)} km`,
+              avgSpeed: `${tableData[i].averageSpeed} km/h`,
+              topSpeed: `${tableData[i].topSpeed} km/h`,
             };
+            // console.log(getDistance(i));
             rows.set(i, trip);
           }
         })
@@ -139,6 +148,27 @@ const TripCon = (props) => {
       );
     }
     return responses;
+  };
+
+  const getDistance = (trip) => {
+    // var coordStart = [latS, lonS];
+    // var coordEnd = [latE, lonE];
+
+    // for (let i = 0; i < latS.length; i++) {
+    var tempLatS = latS[trip];
+    var tempLonS = lonS[trip];
+    var tempLatE = latE[trip];
+    var tempLonE = lonE[trip];
+
+    var start = [tempLatS, tempLonS];
+    var end = [tempLatE, tempLonE];
+
+    var coords = {
+      start: [tempLatS[0], tempLonS[0]],
+      end: [tempLatE[0], tempLonE[0]],
+    };
+    return MeasureDistances(start, end);
+    // }
   };
 
   return (

@@ -1,36 +1,31 @@
 import React from 'react';
-import { ContentPasteSearchOutlined } from "@mui/icons-material";
-import { length } from "@turf/turf";
+import { ContentPasteSearchOutlined } from '@mui/icons-material';
+import * as turf from '@turf/turf';
 
-const MeasureDistances = (props) => {
-
-var distance = 0
-
-    
-
-        const geojson = {
-            'type': 'FeatureCollection',
-            'features': [
-              {
-                'type': 'Feature',
-                'geometry': {
-                  'type': 'LineString',
-                  'properties': {},
-                  'coordinates':
-                    [props.coordinates.start, props.coordinates.end]
-                }
-              }
-            ]
-          };
-          var line = geojson;
-          distance = length(line).toFixed(1);
- 
-
-
-  
-    
-    return (distance);
+const MeasureDistances = (start, end) => {
+  const geojson = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          properties: {},
+          coordinates: {
+            start: { start },
+            end: { end },
+          },
+        },
+      },
+    ],
   };
-  
-  export default MeasureDistances;
-  
+  // var tempS = typeof JSON.stringify(start[0]);
+  var from = turf.point([parseFloat(start[0]), parseFloat(start[1])]);
+  var to = turf.point([parseFloat(end[0]), parseFloat(end[1])]);
+  var options = { units: 'kilometers' };
+  var distance = turf.distance(from, to, options).toFixed(1);
+  // console.log(distance);
+  return distance;
+};
+
+export { MeasureDistances };
