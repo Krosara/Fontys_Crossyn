@@ -1,6 +1,8 @@
-import { useEffect, useState, React } from 'react';
+import { useEffect, useState, React, useRef } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
+import { ConstructionOutlined } from '@mui/icons-material';
+import { MeasureDistances } from '../services/MeasureDistances';
 
 const accessToken =
   'sk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3g1M2U2azkyaDJ6MnRsYWZscnh5eDVkIn0.TeE7bH2dRuBGkFcW0ehE8A';
@@ -20,20 +22,36 @@ const columns = [
   {
     field: 'startTime',
     headerName: 'Start time',
+    width: '210',
   },
   {
     field: 'endTime',
     headerName: 'End time',
+    width: '210',
   },
   {
     field: 'startLoc',
     headerName: 'Start location',
-    width: '240',
+    width: '400',
   },
   {
     field: 'endLoc',
     headerName: 'End location',
-    width: '240',
+    width: '400',
+  },
+  {
+    field: 'distance',
+    headerName: 'Straight-line distance',
+    width: '180',
+  },
+  {
+    field: 'avgSpeed',
+    headerName: 'Average speed',
+    width: '130',
+  },
+  {
+    field: 'topSpeed',
+    headerName: 'Top speed',
   },
 ];
 const TripCon = (props) => {
@@ -46,83 +64,116 @@ const TripCon = (props) => {
   const [endCities, setEndCities] = useState([]);
   var tableData = [];
   var rows = new Map();
+  let temp = [];
+  let temp1 = [];
+  let isMounted = useRef(0);
 
   useEffect(() => {
-    axios
-      .get(baseURL)
-      .then((response) => {
-        for (var i = 0; i < response.data.length; i++) {
-          tableData.push(response.data[i]);
-          let data = response.data[i];
-          var dataSize = data.packets.length;
-          lonS.push([data.packets[0].location.lon]);
-          latS.push([data.packets[0].location.lat]);
-          lonE.push([data.packets[dataSize - 1].location.lon]);
-          latE.push([data.packets[dataSize - 1].location.lat]);
-        }
-        getStartCity();
-        getEndCity();
-      })
-      .then(() => {
-        for (let i = 0; i < tableData.length; i++) {
-          const trip = {
-            id: i + 1,
-            vehicleId: tableData[i].vehicleID,
-            startTime: tableData[i].startTime,
-            endTime: tableData[i].endTime,
-            startLoc: startCities[i],
-            endLoc: endCities[i],
-          };
-          rows.set(i, trip);
-        }
-      })
-      .finally(() => setTableRows(Array.from(rows.values())));
-    console.log(endCities[0]);
-    console.log(startCities[0]);
+    if (isMounted.current < 3) {
+      axios
+        .get(baseURL)
+        .then((response) => {
+          for (var i = 0; i < response.data.length; i++) {
+            tableData.push(response.data[i]);
+            let data = response.data[i];
+            var dataSize = data.packets.length;
+            lonS.push([data.packets[0].location.lon]);
+            latS.push([data.packets[0].location.lat]);
+            lonE.push([data.packets[dataSize - 1].location.lon]);
+            latE.push([data.packets[dataSize - 1].location.lat]);
+          }
+          getStartCity().map((promise) =>
+            Promise.resolve(promise)
+              .then((response) =>
+                temp.push(response.data.features[0].place_name)
+              )
+              .then(() => setStartCities(temp))
+          );
+          getEndCity().map((promise) =>
+            Promise.resolve(promise)
+              .then((response) =>
+                temp1.push(response.data.features[0].place_name)
+              )
+              .then(() => setEndCities(temp1))
+          );
+        })
+        .then(() => {
+          for (let i = 0; i < tableData.length; i++) {
+            const trip = {
+              id: i + 1,
+              vehicleId: tableData[i].vehicleID,
+              startTime: tableData[i].startTime,
+              endTime: tableData[i].endTime,
+              startLoc: startCities[i],
+              endLoc: endCities[i],
+              distance: `${getDistance(i)} km`,
+              avgSpeed: `${tableData[i].averageSpeed} km/h`,
+              topSpeed: `${tableData[i].topSpeed} km/h`,
+            };
+            // console.log(getDistance(i));
+            rows.set(i, trip);
+          }
+        })
+        .finally(() => {
+          setTableRows(Array.from(rows.values()));
+          isMounted.current++;
+        });
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [startCities]);
 
   const getStartCity = () => {
-    var data = [];
+    let responses = [];
     for (let i = 0; i < lonS.length; i++) {
       var lng = lonS[i];
       var lat = latS[i];
-      axios
-        .get(
+      responses.push(
+        axios.get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
-        .then((response) => {
-          data.push(response.data.features[0].place_name);
-        });
+      );
     }
-    setStartCities(data);
+    return responses;
   };
-
   const getEndCity = () => {
-    var data = [];
-
+    let responses = [];
     for (let i = 0; i < lonE.length; i++) {
       var lng = lonE[i];
       var lat = latE[i];
-      axios
-        .get(
+
+      responses.push(
+        axios.get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
         )
-        .then((response) => {
-          data.push(response.data.features[0].place_name);
-        });
+      );
     }
-    setEndCities(data);
+    return responses;
   };
 
-  //useEffect(() => {
+  const getDistance = (trip) => {
+    // var coordStart = [latS, lonS];
+    // var coordEnd = [latE, lonE];
 
-  //})
+    // for (let i = 0; i < latS.length; i++) {
+    var tempLatS = latS[trip];
+    var tempLonS = lonS[trip];
+    var tempLatE = latE[trip];
+    var tempLonE = lonE[trip];
+
+    var start = [tempLatS, tempLonS];
+    var end = [tempLatE, tempLonE];
+
+    var coords = {
+      start: [tempLatS[0], tempLonS[0]],
+      end: [tempLatE[0], tempLonE[0]],
+    };
+    return MeasureDistances(start, end);
+    // }
+  };
 
   return (
     <DataGrid
       rows={tableRows}
-      // {...console.log(tableRows)}
       columns={columns}
       checkboxSelection={false}
       sx={{ mt: '4rem' }}

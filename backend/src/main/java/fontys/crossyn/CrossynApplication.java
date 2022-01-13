@@ -38,17 +38,17 @@ public class CrossynApplication {
         //IOService ioService = new IOService();
         //ioService.convertTxtToJson();
 
-        JSONReader reader = new JSONReader();
-        TripCreator tripCreator = new TripCreator();
-        TripMerger tripMerger = new TripMerger();
-
-        ArrayList<Packet> packetList = reader.readJsonFile();
-
-        HashMap<String, ArrayList<Trip>> trips = tripCreator.createTrips(packetList);
-        System.out.println(-1);
-        //HashMap<String, ArrayList<Trip>> mergedTrips = tripMerger.mergeTrips(trips);
-
-        ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
+//        JSONReader reader = new JSONReader();
+//        TripCreator tripCreator = new TripCreator();
+//        TripMerger tripMerger = new TripMerger();
+//
+//        ArrayList<Packet> packetList = reader.readJsonFile();
+//
+//        HashMap<String, ArrayList<Trip>> trips = tripCreator.createTrips(packetList);
+//        System.out.println(-1);
+//        //HashMap<String, ArrayList<Trip>> mergedTrips = tripMerger.mergeTrips(trips);
+//
+//        ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
 //        JSONReader jsonReader = new JSONReader();
 //        TripCreator tripCreator = new TripCreator();
 //        File selectedFile = jsonReader.fileSelect();
@@ -65,12 +65,12 @@ public class CrossynApplication {
 //
 //        ArrayList<Trip> currTrips= trips.get(packetList.get(0).getVehicleId());
 
-        for(Trip t: currTrips){
-            System.out.println(t);
-            System.out.println(t.getPackets().get(0));
-            System.out.println(t.getPackets().get(t.getPackets().size()-1));
-            System.out.println();
-        }
+//        for(Trip t: currTrips){
+//            System.out.println(t);
+//            System.out.println(t.getPackets().get(0));
+//            System.out.println(t.getPackets().get(t.getPackets().size()-1));
+//            System.out.println();
+//        }
 
 
 

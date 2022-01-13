@@ -18,6 +18,6 @@ public class Fleet {
     private List<Vehicle> vehicles = new ArrayList<Vehicle>();
     private User user;
     private String name;
-    private long userId = user.getId();
+    private String userId = user.getId();
 
 }
