@@ -95,7 +95,8 @@ public class JSONReader {
     }
 
     public ArrayList<Packet> readJsonFile() {
-        File selectedFile = fileSelect();
+        File selectedFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\json\\newDataset\\dataset4.json");
+
         if (selectedFile != null) {
             try {
                 //Reading of JSON file
