@@ -11,7 +11,15 @@ class VehicleCon extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/vehicles').then((response) => {
+    axios.get('http://localhost:3000/api/vehicle/getbyfleetid/1').then((response) => {
+      this.setState({
+        vehicleInfo: response.data,
+      });
+      console.log(response.data);
+    });
+  }
+  getVehiclesbyFleetID(fleetID) {
+    axios.get('http://localhost:3000/api/vehicle/getbyfleetid/' + fleetID).then((response) => {
       this.setState({
         vehicleInfo: response.data,
       });
@@ -19,11 +27,13 @@ class VehicleCon extends React.Component {
     });
   }
 
+
+
   render() {
     const { vehicleInfo } = this.state.vehicleInfo;
 
     return (
-      <div class="NeoInfo">
+      <div class="Vehicle Info">
         <h1>Vehicle(s) Info</h1>
         <h2>
           Owner: AJW Rutjens

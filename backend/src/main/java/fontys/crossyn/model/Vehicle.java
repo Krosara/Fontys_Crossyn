@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Vehicle {
 
     @Id @GeneratedValue private long id;
