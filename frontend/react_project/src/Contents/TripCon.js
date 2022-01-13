@@ -3,6 +3,8 @@ import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { ConstructionOutlined } from '@mui/icons-material';
 import { MeasureDistances } from '../services/MeasureDistances';
+import MapPage from '../pages/MapPage';
+import { Navigate } from 'react-router-dom';
 
 const accessToken =
   'sk.eyJ1Ijoia2Fsb3ByZXNsaSIsImEiOiJja3g1M2U2azkyaDJ6MnRsYWZscnh5eDVkIn0.TeE7bH2dRuBGkFcW0ehE8A';
@@ -178,9 +180,13 @@ const TripCon = (props) => {
       checkboxSelection={false}
       sx={{ mt: '4rem' }}
       pageSize={10}
-      disableSelectionOnClick
+      // disableSelectionOnClick
       disableColumnMenu
       autoHeight
+      onSelectionModelChange={(id) => {
+        console.log(id);
+        <Navigate to="/map" id={id} />;
+      }}
     />
   );
 };

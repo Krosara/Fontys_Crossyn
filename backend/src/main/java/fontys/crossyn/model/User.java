@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 public class User {
 
-    @Id @GeneratedValue private long id;
+    @Id @GeneratedValue private String id;
     private String username;
     private String password;
     private String fullName;

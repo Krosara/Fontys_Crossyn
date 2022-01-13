@@ -1,10 +1,10 @@
 import React from 'react';
 import Map from '../Components/Map';
 
-const MapPage = () => {
+const MapPage = (props) => {
   return (
     <div>
-      <Map />
+      <Map id={props} />
     </div>
   );
 };

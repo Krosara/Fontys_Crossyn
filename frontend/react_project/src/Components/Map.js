@@ -37,7 +37,7 @@ function Map() {
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
       //for (var i = 0; i < response.data.length; i++) {
-      const data = response.data[2];
+      const data = response.data[4];
       data.packets.forEach((element) =>
         tripLoc.push([element.location.lon, element.location.lat])
       );
@@ -85,10 +85,10 @@ function Map() {
   });
   return (
     <div>
-      {/* <div className="sidebar">
+      <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div> */}
-      <div ref={mapContainer} sx={{ height: 100 }} className="map-container" />
+      </div>
+      <div ref={mapContainer} className="map-container" />
     </div>
   );
 
