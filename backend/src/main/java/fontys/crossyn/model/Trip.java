@@ -42,14 +42,6 @@ public class Trip {
 
     }
 
-    public int getAverageSpeed() {
-        return averageSpeed;
-    }
-
-    public int getTopSpeed() {
-        return topSpeed;
-    }
-
     public void addPacket(Packet packet){
        /* if(packets.size() == 0 || !packet.equals(getLast())){
             this.packets.add(packet);

@@ -11,7 +11,7 @@ class VehicleCon extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/vehicle/getbyfleetid/1').then((response) => {
+    axios.get('http://localhost:3000/api/vehicles/getfromfleetid/1').then((response) => {
       this.setState({
         vehicleInfo: response.data,
       });
@@ -19,7 +19,7 @@ class VehicleCon extends React.Component {
     });
   }
   getVehiclesbyFleetID(fleetID) {
-    axios.get('http://localhost:3000/api/vehicle/getbyfleetid/' + fleetID).then((response) => {
+    axios.get('http://localhost:3000/api/vehicles/getfromfleetid/' + fleetID).then((response) => {
       this.setState({
         vehicleInfo: response.data,
       });
@@ -31,6 +31,8 @@ class VehicleCon extends React.Component {
 
   render() {
     const { vehicleInfo } = this.state.vehicleInfo;
+
+    <input onChange={(e) => {this.getVehiclesbyFleetID(e.target.value)}} placeholder="Lookup vehicle by fleet id..."></input>
 
     return (
       <div class="Vehicle Info">
