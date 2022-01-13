@@ -32,12 +32,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST,
                         AuthenticationConfiguration.CREATE_TRIPS_URL,
-                        AuthenticationConfiguration.LOGIN_URL
+                        AuthenticationConfiguration.LOGIN_URL,
+                        "/api/user"
                 )
                 .permitAll()
                 .antMatchers(HttpMethod.GET,
                         AuthenticationConfiguration.REFRESH_URL,
-                        AuthenticationConfiguration.GET_TRIPS_URL
+//                        AuthenticationConfiguration.GET_TRIPS_URL,
+                        "/api/user/refresh"
                 )
                 .permitAll()
                 .anyRequest().authenticated()

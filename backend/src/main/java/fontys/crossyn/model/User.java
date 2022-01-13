@@ -13,12 +13,11 @@ import javax.persistence.*;
 @Getter
 public class User {
 
-    @Id @GeneratedValue private long id;
+    @Id @GeneratedValue private String id;
     private String username;
     private String password;
     private String fullName;
     private String email;
-    private String role;
 
     public User(String username, String password){
         this.username = username;
