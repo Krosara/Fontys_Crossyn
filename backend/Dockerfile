@@ -1,14 +1,10 @@
-FROM gradle:7.3.0-jdk17-alpine AS build
+FROM gradle:7-jdk16-openj9 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --no-daemon 
+RUN gradle build -x test --no-daemon
 
 FROM eclipse-temurin:16.0.2_7-jdk-alpine
-
-EXPOSE 8080
-
 RUN mkdir /app
-
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/
-
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
+COPY --from=build /home/gradle/src/build/libs/crossyn-0.0.1-SNAPSHOT.jar /app/
+ENTRYPOINT ["java", "-jar","/app/crossyn-0.0.1-SNAPSHOT.jar"]
+EXPOSE 8080
