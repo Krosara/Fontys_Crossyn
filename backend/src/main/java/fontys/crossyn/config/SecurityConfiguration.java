@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.GET,
                         AuthenticationConfiguration.REFRESH_URL,
-//                        AuthenticationConfiguration.GET_TRIPS_URL,
+                        AuthenticationConfiguration.GET_TRIPS_URL,
                         "/api/user/refresh"
                 )
                 .permitAll()

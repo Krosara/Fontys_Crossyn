@@ -51,7 +51,7 @@ public class RefreshToken {
         return JWT.create()
                 .withSubject(acc.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + AuthenticationConfiguration.EXPIRATION_TIME))
-                .withClaim("role", getAuthorities(acc.getRole()).iterator().next().getAuthority())
+//                .withClaim("role", getAuthorities(acc.getRole()).iterator().next().getAuthority())
                 .sign(Algorithm.HMAC512(AuthenticationConfiguration.SECRET.getBytes()));
     }
 
